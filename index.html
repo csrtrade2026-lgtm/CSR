@@ -154,7 +154,8 @@
         @media print {
             @page { size: A4; margin: 0; }
             body { background: white; color: black; -webkit-print-color-adjust: exact; print-color-adjust: exact; margin: 0; padding: 0; }
-            .no-print, #dashboard-view, #inventory-view, #clients-view, #finance-view, #nav-bar, #login-screen, #toast { display: none !important; }
+            .no-print, #dashboard-view, #inventory-view, #clients-view, #finance-view, #sidebar, #sidebar-toggle, #sidebar-overlay, #login-screen, #toast { display: none !important; }
+            .main-content { margin-left: 0 !important; }
             #editor-view:not(.hidden), #offer-view:not(.hidden), #receipt-view:not(.hidden) { display: block !important; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 9999; }
             #offer-view { padding-top: 0 !important; padding-bottom: 0 !important; }
             #editor-view { padding-top: 0 !important; padding-bottom: 0 !important; }
@@ -224,6 +225,238 @@
             height: 100%;
             border-radius: 4px;
             transition: width 0.5s ease;
+        }
+
+        /* ===== SIDEBAR VERTICAL ===== */
+        #sidebar {
+            width: 260px;
+            min-height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 50;
+            background: linear-gradient(180deg, #111827 0%, #1f2937 100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.3);
+        }
+        .dark #sidebar {
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+        }
+        #sidebar.sidebar-collapsed {
+            transform: translateX(-260px);
+        }
+        .main-content {
+            margin-left: 260px;
+            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 100vh;
+        }
+        .main-content.sidebar-closed {
+            margin-left: 0;
+        }
+
+        /* Sidebar header */
+        .sidebar-header {
+            padding: 20px 20px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .sidebar-header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            object-fit: contain;
+        }
+        .sidebar-header .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar-header .brand-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+        .sidebar-header .brand-sub {
+            font-size: 0.65rem;
+            color: #9ca3af;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Sidebar navigation items */
+        .sidebar-nav {
+            flex: 1;
+            padding: 12px 0;
+        }
+        .sidebar-section-label {
+            padding: 10px 20px 6px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #6b7280;
+        }
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            color: #d1d5db;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            text-decoration: none;
+            position: relative;
+        }
+        .sidebar-item:hover {
+            background: rgba(255,255,255,0.06);
+            color: #fff;
+        }
+        .sidebar-item.active {
+            background: rgba(217, 119, 6, 0.12);
+            color: #fbbf24;
+            border-left-color: #d97706;
+            font-weight: 700;
+        }
+        .sidebar-item.active .sidebar-icon {
+            color: #fbbf24;
+        }
+        .sidebar-item .sidebar-icon {
+            width: 20px;
+            text-align: center;
+            font-size: 1rem;
+            color: #9ca3af;
+            transition: color 0.2s;
+        }
+        .sidebar-item:hover .sidebar-icon {
+            color: #e5e7eb;
+        }
+        .sidebar-item .item-badge {
+            margin-left: auto;
+            background: #d97706;
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 9999px;
+        }
+
+        /* CTA Button */
+        .sidebar-cta {
+            margin: 8px 16px;
+            padding: 12px;
+            background: linear-gradient(135deg, #d97706, #b45309);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.875rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+        }
+        .sidebar-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(217, 119, 6, 0.4);
+            background: linear-gradient(135deg, #b45309, #92400e);
+        }
+        .sidebar-cta:active {
+            transform: translateY(0);
+        }
+
+        /* Sidebar footer */
+        .sidebar-footer {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding: 12px 16px;
+        }
+        .sidebar-footer-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 4px;
+            color: #9ca3af;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 6px;
+        }
+        .sidebar-footer-item:hover {
+            color: #e5e7eb;
+            background: rgba(255,255,255,0.05);
+        }
+        .sidebar-footer-item .footer-icon {
+            width: 18px;
+            text-align: center;
+        }
+
+        /* Mobile overlay */
+        #sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 45;
+            transition: opacity 0.3s;
+        }
+        #sidebar-overlay.active {
+            display: block;
+        }
+
+        /* Mobile hamburger button */
+        #sidebar-toggle {
+            display: none;
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            z-index: 60;
+            background: #1f2937;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            width: 42px;
+            height: 42px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: all 0.2s;
+        }
+        #sidebar-toggle:hover {
+            background: #d97706;
+        }
+
+        /* Responsive: collapse sidebar on small screens */
+        @media (max-width: 1024px) {
+            #sidebar {
+                transform: translateX(-260px);
+            }
+            #sidebar.sidebar-open {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            #sidebar-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        /* Print: hide sidebar */
+        @media print {
+            #sidebar, #sidebar-toggle, #sidebar-overlay { display: none !important; }
+            .main-content { margin-left: 0 !important; }
         }
     </style>
 </head>
@@ -304,64 +537,100 @@
         </div>
     </div>
 
-    <!-- Navegación Superior -->
-    <nav id="nav-bar" class="bg-gray-900 dark:bg-slate-900 text-white shadow-lg fixed w-full z-40 no-print hidden transition-colors duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center gap-3 cursor-pointer" onclick="showDashboard()">
-                    <img src="https://z-cdn-media.chatglm.cn/files/60f930bf-dcb8-4094-a695-2ffc3383893f.jpg?auth_key=1878022568-bd162214d4c1439d9e2169d746f4429b-0-6f0085f93cc190d47ae3b4cd8b70b7e5" alt="CSR Logo" class="h-8 w-auto object-contain rounded">
-                    <span class="font-bold text-xl tracking-wide">CSR <span class="text-amber-500">s.r.l</span></span>
-                </div>
-                <div class="flex gap-2 md:gap-4 items-center overflow-x-auto">
-                    <button onclick="showDashboard()" class="text-gray-300 dark:text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap">
-                        <i class="fas fa-chart-line mr-1"></i> Dashboard
-                    </button>
-                    <button onclick="showFinance()" class="text-gray-300 dark:text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors border border-gray-700 dark:border-slate-700 rounded hover:border-green-500 whitespace-nowrap">
-                        <i class="fas fa-coins mr-1"></i> Finanzas
-                    </button>
-                    <button onclick="showClients()" class="text-gray-300 dark:text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors border border-gray-700 dark:border-slate-700 rounded hover:border-green-500 whitespace-nowrap">
-                        <i class="fas fa-users mr-1"></i> Clientes
-                    </button>
-                    <button onclick="showInventory()" class="text-gray-300 dark:text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors border border-gray-700 dark:border-slate-700 rounded hover:border-amber-500 whitespace-nowrap">
-                        <i class="fas fa-boxes mr-1"></i> Inventario
-                    </button>
-                    <button onclick="showOffer()" class="text-gray-300 dark:text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors border border-gray-700 dark:border-slate-700 rounded hover:border-blue-500 whitespace-nowrap">
-                        <i class="fas fa-file-contract mr-1"></i> Ofertas
-                    </button>
-                    <button onclick="showReceipt()" class="text-gray-300 dark:text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors border border-gray-700 dark:border-slate-700 rounded hover:border-purple-500 whitespace-nowrap">
-                        <i class="fas fa-receipt mr-1"></i> Recibo
-                    </button>
-                    <button onclick="showSalesAnalytics()" class="text-gray-300 dark:text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors border border-gray-700 dark:border-slate-700 rounded hover:border-amber-500 whitespace-nowrap">
-                        <i class="fas fa-chart-pie mr-1"></i> Ventas
-                    </button>
-                    <button onclick="showEditor()" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-md text-sm font-bold transition-colors shadow-md whitespace-nowrap">
-                        <i class="fas fa-plus mr-1"></i> Facturar
-                    </button>
-                    
-                    <div class="border-l border-gray-700 dark:border-slate-700 mx-2 h-6"></div>
-                    
-                    <button onclick="exportData()" class="text-gray-400 hover:text-green-400 px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap" title="Descargar Respaldo Completo (.json)">
-                        <i class="fas fa-download mr-1"></i> <span class="hidden md:inline">Exportar</span>
-                    </button>
-                    <button onclick="triggerImport()" class="text-gray-400 hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap" title="Cargar Respaldo (.json)">
-                        <i class="fas fa-upload mr-1"></i> <span class="hidden md:inline">Importar</span>
-                    </button>
-                    
-                    <div class="border-l border-gray-700 dark:border-slate-700 mx-2 h-6"></div>
-                    
-                    <button id="theme-toggle" onclick="toggleTheme()" class="p-2 rounded-full text-gray-400 hover:text-white focus:outline-none transition-transform hover:scale-110" title="Cambiar Tema">
-                        <i id="theme-icon" class="fas fa-moon text-lg"></i>
-                    </button>
-                    <button onclick="handleLogout()" class="text-red-400 hover:text-red-300 px-3 py-2 rounded-md text-sm font-medium transition-colors whitespace-nowrap">
-                        <i class="fas fa-sign-out-alt mr-1"></i> Salir
-                    </button>
-                </div>
+    <!-- Botón Toggle Móvil -->
+    <button id="sidebar-toggle" onclick="toggleSidebar()" title="Menú">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Overlay para móvil -->
+    <div id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+    <!-- Sidebar Vertical -->
+    <aside id="sidebar" class="no-print hidden">
+        <!-- Header del Sidebar -->
+        <div class="sidebar-header" onclick="showDashboard()" style="cursor:pointer;">
+            <img src="https://z-cdn-media.chatglm.cn/files/60f930bf-dcb8-4094-a695-2ffc3383893f.jpg?auth_key=1878022568-bd162214d4c1439d9e2169d746f4429b-0-6f0085f93cc190d47ae3b4cd8b70b7e5" alt="CSR Logo">
+            <div class="brand-text">
+                <span class="brand-name">CSR <span style="color:#f59e0b;">s.r.l</span></span>
+                <span class="brand-sub">Sistema v8.3</span>
             </div>
         </div>
-    </nav>
+
+        <!-- Botón CTA: Facturar -->
+        <div style="padding:4px 0;">
+            <div class="sidebar-cta" onclick="showEditor()">
+                <i class="fas fa-plus"></i> Nueva Factura
+            </div>
+        </div>
+
+        <!-- Sección: Principal -->
+        <div class="sidebar-nav">
+            <div class="sidebar-section-label">Principal</div>
+            <div class="sidebar-item active" data-view="dashboard" onclick="showDashboard()">
+                <i class="fas fa-chart-line sidebar-icon"></i>
+                <span>Dashboard</span>
+            </div>
+            <div class="sidebar-item" data-view="finance" onclick="showFinance()">
+                <i class="fas fa-coins sidebar-icon"></i>
+                <span>Finanzas</span>
+            </div>
+            <div class="sidebar-item" data-view="sales-analytics" onclick="showSalesAnalytics()">
+                <i class="fas fa-chart-pie sidebar-icon"></i>
+                <span>Ventas</span>
+            </div>
+
+            <div class="sidebar-section-label" style="margin-top:8px;">Gestión</div>
+            <div class="sidebar-item" data-view="clients" onclick="showClients()">
+                <i class="fas fa-users sidebar-icon"></i>
+                <span>Clientes</span>
+            </div>
+            <div class="sidebar-item" data-view="inventory" onclick="showInventory()">
+                <i class="fas fa-boxes sidebar-icon"></i>
+                <span>Inventario</span>
+            </div>
+
+            <div class="sidebar-section-label" style="margin-top:8px;">Documentos</div>
+            <div class="sidebar-item" data-view="editor" onclick="showEditor()">
+                <i class="fas fa-file-invoice-dollar sidebar-icon"></i>
+                <span>Facturas</span>
+            </div>
+            <div class="sidebar-item" data-view="offer" onclick="showOffer()">
+                <i class="fas fa-file-contract sidebar-icon"></i>
+                <span>Ofertas</span>
+            </div>
+            <div class="sidebar-item" data-view="receipt" onclick="showReceipt()">
+                <i class="fas fa-receipt sidebar-icon"></i>
+                <span>Recibos</span>
+            </div>
+        </div>
+
+        <!-- Footer del Sidebar -->
+        <div class="sidebar-footer">
+            <div class="sidebar-footer-item" onclick="exportData()" title="Descargar Respaldo (.json)">
+                <i class="fas fa-download footer-icon" style="color:#4ade80;"></i>
+                <span>Exportar datos</span>
+            </div>
+            <div class="sidebar-footer-item" onclick="triggerImport()" title="Cargar Respaldo (.json)">
+                <i class="fas fa-upload footer-icon" style="color:#60a5fa;"></i>
+                <span>Importar datos</span>
+            </div>
+            <div class="sidebar-footer-item" id="theme-toggle" onclick="toggleTheme()" title="Cambiar Tema">
+                <i id="theme-icon" class="fas fa-moon footer-icon" style="color:#a78bfa;"></i>
+                <span id="theme-label">Tema Oscuro</span>
+            </div>
+            <div style="border-top:1px solid rgba(255,255,255,0.06); margin:6px 0;"></div>
+            <div class="sidebar-footer-item" onclick="handleLogout()" style="color:#f87171;">
+                <i class="fas fa-sign-out-alt footer-icon"></i>
+                <span>Cerrar sesión</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Contenido Principal (al lado del sidebar) -->
+    <div class="main-content" id="main-content">
 
     <!-- VISTA DASHBOARD -->
-    <div id="dashboard-view" class="pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto fade-in hidden">
+    <div id="dashboard-view" class="pt-8 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto fade-in hidden">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div class="bg-white dark:bg-slate-800 overflow-hidden shadow rounded-lg border-l-4 border-amber-500">
                 <div class="p-5">
@@ -482,7 +751,7 @@
     </div>
 
        <!-- VISTA FINANZAS ACTUALIZADA -->
-    <div id="finance-view" class="hidden pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto fade-in">
+    <div id="finance-view" class="hidden pt-8 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto fade-in">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
             <div>
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Módulo Contable y Analítica</h2>
@@ -660,7 +929,7 @@
     </div>
 
     <!-- VISTA CLIENTES -->
-    <div id="clients-view" class="hidden pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto fade-in">
+    <div id="clients-view" class="hidden pt-8 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto fade-in">
         <div id="clients-list-container">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
                 <div>
@@ -733,7 +1002,7 @@
     </div>
 
     <!-- VISTA INVENTARIO (MODIFICADA CON VENTAS) -->
-    <div id="inventory-view" class="hidden pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto fade-in">
+    <div id="inventory-view" class="hidden pt-8 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto fade-in">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
             <div>
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Gestión de Inventario Multi-Sede</h2>
@@ -848,7 +1117,7 @@
     </div>
 
     <!-- VISTA EDITOR (FACTURA) -->
-    <div id="editor-view" class="hidden pt-16 pb-12 bg-gray-100 dark:bg-slate-900 min-h-screen transition-colors duration-300">
+    <div id="editor-view" class="hidden pt-4 pb-12 bg-gray-100 dark:bg-slate-900 min-h-screen transition-colors duration-300">
         <div class="max-w-[210mm] mx-auto px-4 mb-4 no-print">
             <button onclick="showDashboard()" class="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium transition-colors"><i class="fas fa-arrow-left"></i> Volver al Panel</button>
         </div>
@@ -957,7 +1226,7 @@
     </div>
 
     <!-- VISTA RECIBO -->
-    <div id="receipt-view" class="hidden pt-16 pb-12 bg-gray-100 dark:bg-slate-900 min-h-screen transition-colors duration-300">
+    <div id="receipt-view" class="hidden pt-4 pb-12 bg-gray-100 dark:bg-slate-900 min-h-screen transition-colors duration-300">
         <div class="max-w-[210mm] mx-auto px-4 mb-4 no-print">
             <button onclick="showDashboard()" class="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium transition-colors"><i class="fas fa-arrow-left"></i> Volver al Panel</button>
         </div>
@@ -1057,7 +1326,7 @@
     </div>
 
     <!-- VISTA OFERTA -->
-    <div id="offer-view" class="hidden pt-16 pb-12 bg-gray-100 dark:bg-slate-900 min-h-screen transition-colors duration-300">
+    <div id="offer-view" class="hidden pt-4 pb-12 bg-gray-100 dark:bg-slate-900 min-h-screen transition-colors duration-300">
         <div class="max-w-[210mm] mx-auto px-4 mb-4 no-print flex justify-between items-center">
             <button onclick="showDashboard()" class="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium transition-colors"><i class="fas fa-arrow-left"></i> Volver al Panel</button>
             <div class="flex gap-2">
@@ -1142,7 +1411,7 @@
     <!-- ============================================================ -->
     <!-- MÓDULO DE ANÁLISIS DE VENTAS POR PRODUCTO -->
     <!-- ============================================================ -->
-    <div id="sales-analytics-view" class="hidden pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto fade-in">
+    <div id="sales-analytics-view" class="hidden pt-8 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto fade-in">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
             <div>
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-white"><i class="fas fa-chart-pie text-amber-500 mr-2"></i> Análisis de Ventas por Producto</h2>
@@ -1356,16 +1625,19 @@
         }
 
         function toggleTheme() {
+            const themeLabel = document.getElementById('theme-label');
             if (htmlElement.classList.contains('dark')) {
                 htmlElement.classList.remove('dark');
                 localStorage.setItem('theme', 'light');
                 themeIcon.classList.remove('fa-sun');
                 themeIcon.classList.add('fa-moon');
+                if (themeLabel) themeLabel.textContent = 'Tema Oscuro';
             } else {
                 htmlElement.classList.add('dark');
                 localStorage.setItem('theme', 'dark');
                 themeIcon.classList.remove('fa-moon');
                 themeIcon.classList.add('fa-sun');
+                if (themeLabel) themeLabel.textContent = 'Tema Claro';
             }
             renderFinanceView();
             // Re-renderizar gráfico de inventario si está visible
@@ -1479,27 +1751,59 @@
 
         function checkSession() {
             const isLogged = localStorage.getItem(SESSION_KEY) === 'true';
-            if (isLogged) { document.getElementById('login-screen').classList.add('hidden'); document.getElementById('nav-bar').classList.remove('hidden'); showDashboard(); }
-            else { document.getElementById('login-screen').classList.remove('hidden'); document.getElementById('nav-bar').classList.add('hidden'); }
+            if (isLogged) {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('sidebar').classList.remove('hidden');
+                showDashboard();
+            } else {
+                document.getElementById('login-screen').classList.remove('hidden');
+                document.getElementById('sidebar').classList.add('hidden');
+            }
+        }
+
+        // ===== SIDEBAR FUNCTIONS =====
+        function setActiveSidebarItem(viewName) {
+            document.querySelectorAll('.sidebar-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.view === viewName) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            sidebar.classList.toggle('sidebar-open');
+            overlay.classList.toggle('active');
+        }
+
+        function closeSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            sidebar.classList.remove('sidebar-open');
+            overlay.classList.remove('active');
         }
         function handleLogin(e) { e.preventDefault(); const user = document.getElementById('username').value; const pass = document.getElementById('password').value; if (user === VALID_USER && pass === VALID_PASS) { localStorage.setItem(SESSION_KEY, 'true'); showToast("Bienvenido"); checkSession(); } else { showToast("Credenciales incorrectas", true); } }
         function handleLogout() { if(confirm("¿Cerrar sesión?")) { localStorage.removeItem(SESSION_KEY); location.reload(); } }
 
-        function showDashboard() { hideAllViews(); document.getElementById('dashboard-view').classList.remove('hidden'); renderInvoiceList(); renderReceiptList(); renderOfferList(); updateStats(); switchTab('invoices'); }
-        function showFinance() { hideAllViews(); document.getElementById('finance-view').classList.remove('hidden'); renderFinanceView(); }
+        function showDashboard() { hideAllViews(); document.getElementById('dashboard-view').classList.remove('hidden'); renderInvoiceList(); renderReceiptList(); renderOfferList(); updateStats(); switchTab('invoices'); setActiveSidebarItem('dashboard'); closeSidebar(); }
+        function showFinance() { hideAllViews(); document.getElementById('finance-view').classList.remove('hidden'); renderFinanceView(); setActiveSidebarItem('finance'); closeSidebar(); }
         function showInventory() { 
             hideAllViews(); 
-            document.getElementById('inventory-view').classList.remove('hidden'); 
+            document.getElementById('inventory-view').classList.remove('hidden');
             // Asegurar que el mes seleccionado esté inicializado
             const monthInput = document.getElementById('sales-month-input');
             if (!monthInput.value) monthInput.value = new Date().toISOString().substring(0, 7);
             renderInventoryList(); 
             document.getElementById('search-inventory').value = '';
+            setActiveSidebarItem('inventory'); closeSidebar();
         }
-        function showEditor(invoiceId = null) { hideAllViews(); document.getElementById('editor-view').classList.remove('hidden'); if (invoiceId) { loadInvoice(invoiceId); } else { resetForm(); } }
-        function showReceipt(receiptId = null) { hideAllViews(); document.getElementById('receipt-view').classList.remove('hidden'); if (receiptId) { loadReceipt(receiptId); } else { resetReceiptForm(); } }
+        function showEditor(invoiceId = null) { hideAllViews(); document.getElementById('editor-view').classList.remove('hidden'); if (invoiceId) { loadInvoice(invoiceId); } else { resetForm(); } setActiveSidebarItem('editor'); closeSidebar(); }
+        function showReceipt(receiptId = null) { hideAllViews(); document.getElementById('receipt-view').classList.remove('hidden'); if (receiptId) { loadReceipt(receiptId); } else { resetReceiptForm(); } setActiveSidebarItem('receipt'); closeSidebar(); }
         function showOffer(offerId = null) {
             hideAllViews(); document.getElementById('offer-view').classList.remove('hidden');
+            setActiveSidebarItem('offer'); closeSidebar();
             currentOfferId = offerId;
             if (offerId) { 
                 loadOfferData(offerId); 
@@ -1987,6 +2291,7 @@ function deleteWorker(id) {
             document.getElementById('clients-view').classList.remove('hidden'); 
             backToClientList(); 
             document.getElementById('search-clients').value = '';
+            setActiveSidebarItem('clients'); closeSidebar();
         }
         function backToClientList() { document.getElementById('clients-list-container').classList.remove('hidden'); document.getElementById('client-detail-container').classList.add('hidden'); renderClientsGrid(); }
         function prepareNewClient() { currentClientId = null; const newClient = { id: Date.now().toString(), name: "Nuevo Cliente", phone: "", address: "", requests: [] }; clients.push(newClient); saveClients(); showClientDetail(newClient.id); }
@@ -3130,6 +3435,7 @@ function renderSalesDailyLog() {
             hideAllViews();
             document.getElementById('sales-analytics-view').classList.remove('hidden');
             renderSalesAnalytics();
+            setActiveSidebarItem('sales-analytics'); closeSidebar();
         }
 
         function getSalesAnalyticsData() {
@@ -3909,5 +4215,7 @@ function renderSalesDailyLog() {
 
         window.onload = function() { initApp(); checkSession(); };
     </script>
+
+    </div><!-- fin .main-content -->
 </body>
 </html>
