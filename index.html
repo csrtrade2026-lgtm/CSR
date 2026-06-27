@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSR s.r.l - Sistema Multi-Depósito v8.3 (Sales Tracking)</title>
+    <title>CSR s.u.r.l - Sistema Multi-Depósito</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -509,7 +509,7 @@
                 <div class="flex justify-center mb-4">
                     <img src="https://z-cdn-media.chatglm.cn/files/60f930bf-dcb8-4094-a695-2ffc3383893f.jpg?auth_key=1878022568-bd162214d4c1439d9e2169d746f4429b-0-6f0085f93cc190d47ae3b4cd8b70b7e5" alt="CSR Logo" class="w-32 h-auto rounded-lg shadow-2xl object-contain">
                 </div>
-                <h1 class="text-2xl font-bold text-white mt-2">CSR <span class="text-amber-500">s.r.l</span></h1>
+                <h1 class="text-2xl font-bold text-white mt-2">CSR <span class="text-blue-500">s.r.l</span></h1>
                 <p class="text-gray-400 text-sm mt-1">Sistema de Gestión Integral v8.3</p>
             </div>
             <form onsubmit="handleLogin(event)" class="space-y-6">
@@ -532,7 +532,7 @@
                 </button>
             </form>
             <div class="mt-6 text-center border-t border-gray-700 pt-4">
-                <p class="text-xs text-gray-500">CSR s.r.l &copy; 2025</p>
+                <p class="text-xs text-gray-500">CSR srl &copy; 2025</p>
             </div>
         </div>
     </div>
@@ -551,7 +551,7 @@
         <div class="sidebar-header" onclick="showDashboard()" style="cursor:pointer;">
             <img src="https://z-cdn-media.chatglm.cn/files/60f930bf-dcb8-4094-a695-2ffc3383893f.jpg?auth_key=1878022568-bd162214d4c1439d9e2169d746f4429b-0-6f0085f93cc190d47ae3b4cd8b70b7e5" alt="CSR Logo">
             <div class="brand-text">
-                <span class="brand-name">CSR <span style="color:#f59e0b;">s.r.l</span></span>
+                <span class="brand-name">CSR <span style="color:#3b82f6;">s.r.l</span></span>
                 <span class="brand-sub">Sistema v8.3</span>
             </div>
         </div>
@@ -1135,8 +1135,7 @@
                         <img src="https://z-cdn-media.chatglm.cn/files/60f930bf-dcb8-4094-a695-2ffc3383893f.jpg?auth_key=1878022568-bd162214d4c1439d9e2169d746f4429b-0-6f0085f93cc190d47ae3b4cd8b70b7e5" alt="CSR Logo" class="w-full h-full object-contain">
                     </div>
                     <div>
-                        <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">CSR <span class="text-amber-600">s.r.l</span></h1>
-                        <p class="text-gray-500 font-medium text-sm">Especialistas en Aceites y Lubricantes</p>
+                        <h1 class="text-3xl font-extrabold text-blue-600 tracking-tight">CSR <span class="text-blue-600">srl</span></h1>
                         <p class="text-xs text-gray-400 mt-1">Calle 19 e/ 60 y 62, Playa, Habana</p>
                         <p class="text-xs text-gray-400">+53 56578961 | csrhabana@gmail.com</p>
                     </div>
@@ -1170,10 +1169,16 @@
                         <p class="text-xs text-amber-800 font-bold mb-1">Método de Pago</p>
                         <select id="payment-method" class="editable-input font-semibold text-gray-800 bg-transparent w-full">
                             <option>Efectivo (CUP)</option>
+                            <option>USD</option>
                             <option>Transferencia Bancaria</option>
-                            <option>USD (Cash)</option>
                             <option>EUR (Cash)</option>
                         </select>
+                    </div>
+                    <div class="flex items-center gap-2 bg-amber-50 dark:bg-amber-900/30 px-4 py-2 rounded-lg border border-amber-200 dark:border-amber-800 shadow-sm w-full">
+                        <i class="fas fa-exchange-alt text-amber-600"></i>
+                        <span class="text-sm font-bold text-amber-800 dark:text-amber-200 uppercase tracking-wide">Tasa CUP/USD:</span>
+                        <input type="number" id="invoice-exchange-rate-input" class="w-24 border border-amber-300 dark:border-amber-700 rounded px-2 py-1 text-center font-bold text-amber-900 dark:text-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white dark:bg-slate-700" value="540" onchange="syncInvoiceExchangeRate()">
+                        <button onclick="applyInvoiceExchangeRate()" class="bg-amber-600 text-white hover:bg-amber-700 px-3 py-1 rounded text-xs font-bold transition shadow ml-1">Aplicar</button>
                     </div>
                     <div>
                         <p class="text-xs text-gray-400 font-bold mb-1">Comercial</p>
@@ -1185,11 +1190,14 @@
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="border-b-2 border-gray-900">
-                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider w-16">Cant.</th>
+                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider w-12">Cant.</th>
+                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider w-24">Código</th>
                             <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider">Descripción</th>
+                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider w-20">Unidad</th>
                             <th class="py-3 text-xs font-bold text-gray-400 uppercase tracking-wider w-24 no-print">Origen</th>
-                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider text-right w-24">Precio Unit.</th>
-                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider text-right w-24">Total</th>
+                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider text-right w-28">Precio Unit. (CUP)</th>
+                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider text-right w-28">Total (CUP)</th>
+                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider text-right w-28">Equiv. (USD)</th>
                             <th class="py-3 w-10 no-print"></th>
                         </tr>
                     </thead>
@@ -1204,23 +1212,67 @@
                 </div>
                 <div class="flex flex-col justify-end space-y-3">
                     <div class="flex justify-between items-center text-sm">
-                        <span class="text-gray-500 font-medium">Subtotal:</span>
-                        <span class="font-mono text-gray-700">$ <span id="subtotal-display">0.00</span></span>
+                        <span class="text-gray-500 font-medium">Total en (CUP):</span>
+                        <span class="font-mono text-gray-700"><span id="invoice-total-usd-display">0.00</span> CUP</span>
                     </div>
                     <div class="flex justify-between items-center text-sm">
-                        <span class="text-gray-500 font-medium">Impuestos (IVA):</span>
-                        <input type="text" id="tax-input" value="0.00" class="editable-input font-mono text-gray-700 text-right w-24" oninput="calculateTotal()">
+                        <span class="text-gray-500 font-medium">Equivalencia (USD):</span>
+                        <span class="font-mono text-gray-700"><span id="subtotal-display">0.00</span> USD</span>
                     </div>
                     <div class="flex justify-between items-center text-xl font-bold text-amber-700 pt-2 border-t border-gray-200">
-                        <span>Total a Pagar:</span>
-                        <span class="font-mono">$ <span id="total-display">0.00</span></span>
+                        <span>Total a Pagar (USD):</span>
+                        <span class="font-mono"><span id="total-display">0.00</span> USD</span>
                     </div>
                 </div>
             </div>
-            <div class="mt-auto p-8 pt-2 border-t border-gray-200 flex justify-between items-end text-xs text-gray-400">
-                <div class="w-1/3"><p class="font-bold text-gray-500 mb-2">Firma Autorizada</p><div class="border-b border-gray-300 w-full mb-1"></div><p>CSR s.r.l</p></div>
-                <div class="text-center w-1/3"><p class="mb-1"><i class="fas fa-shield-alt text-amber-600"></i> Calidad Garantizada</p><p>Gracias por su preferencia</p></div>
-                <div class="w-1/3 text-right"><p>Página 1 de 1</p><p class="mt-1">CSR s.r.l &copy; 2025</p></div>
+            <div class="mt-auto p-8 pt-4 border-t border-gray-200">
+                <div class="grid grid-cols-3 gap-6 text-xs text-gray-600">
+                    <div class="space-y-2">
+                        <p class="font-bold text-gray-700 text-sm uppercase border-b border-gray-300 pb-1 mb-2">Elaborado por:</p>
+                        <div>
+                            <p class="text-gray-500">Nombre:</p>
+                            <div class="border-b border-gray-400 h-6"></div>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">Carnet de Identidad:</p>
+                            <div class="border-b border-gray-400 h-6"></div>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">Firma y Cuño:</p>
+                            <div class="border-b border-gray-400 h-12"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <p class="font-bold text-gray-700 text-sm uppercase border-b border-gray-300 pb-1 mb-2">Recibido por:</p>
+                        <div>
+                            <p class="text-gray-500">Nombre:</p>
+                            <div class="border-b border-gray-400 h-6"></div>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">Carnet de Identidad:</p>
+                            <div class="border-b border-gray-400 h-6"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <p class="font-bold text-gray-700 text-sm uppercase border-b border-gray-300 pb-1 mb-2">Transportado por:</p>
+                        <div>
+                            <p class="text-gray-500">Nombres:</p>
+                            <div class="border-b border-gray-400 h-6"></div>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">Carnet de Identidad:</p>
+                            <div class="border-b border-gray-400 h-6"></div>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">Vehículo (Chapa):</p>
+                            <div class="border-b border-gray-400 h-6"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between items-end text-xs text-gray-400 mt-6 pt-4 border-t border-gray-200">
+                    <div class="text-center"><p class="mb-1"><i class="fas fa-shield-alt text-amber-600"></i> Calidad Garantizada</p><p>Gracias por su preferencia</p></div>
+                    <div class="text-right"><p>Página 1 de 1</p><p class="mt-1">CSR srl &copy; 2025</p></div>
+                </div>
             </div>
         </div>
     </div>
@@ -1277,11 +1329,17 @@
                     <div class="bg-purple-50 p-4 rounded-lg border border-purple-100 inline-block text-left w-full">
                         <p class="text-xs text-purple-800 font-bold mb-1">Forma de Pago</p>
                         <select id="receipt-payment-method" class="editable-input font-semibold text-gray-800 bg-transparent w-full">
+                            <option>USD</option>
                             <option>Efectivo (CUP)</option>
                             <option>Transferencia Bancaria</option>
-                            <option>USD (Cash)</option>
                             <option>EUR (Cash)</option>
                         </select>
+                    </div>
+                    <div class="flex items-center gap-2 bg-purple-50 dark:bg-purple-900/30 px-4 py-2 rounded-lg border border-purple-200 dark:border-purple-800 shadow-sm w-full">
+                        <i class="fas fa-exchange-alt text-purple-600"></i>
+                        <span class="text-sm font-bold text-purple-800 dark:text-purple-200 uppercase tracking-wide">Tasa CUP/USD:</span>
+                        <input type="number" id="receipt-exchange-rate-input" class="w-24 border border-purple-300 dark:border-purple-700 rounded px-2 py-1 text-center font-bold text-purple-900 dark:text-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white dark:bg-slate-700" value="540" onchange="syncReceiptExchangeRate()">
+                        <button onclick="applyReceiptExchangeRate()" class="bg-purple-600 text-white hover:bg-purple-700 px-3 py-1 rounded text-xs font-bold transition shadow ml-1">Aplicar</button>
                     </div>
                 </div>
             </div>
@@ -1289,11 +1347,14 @@
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="border-b-2 border-gray-900">
-                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider w-16">Cant.</th>
+                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider w-12">Cant.</th>
+                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider w-24">Código</th>
                             <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider">Descripción</th>
+                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider w-20">Unidad</th>
                             <th class="py-3 text-xs font-bold text-gray-400 uppercase tracking-wider w-24 no-print">Origen</th>
-                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider text-right w-24">Precio Unit.</th>
-                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider text-right w-24">Total</th>
+                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider text-right w-28">Precio Unit. (CUP)</th>
+                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider text-right w-28">Total (CUP)</th>
+                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider text-right w-28">Equiv. (USD)</th>
                             <th class="py-3 w-10 no-print"></th>
                         </tr>
                     </thead>
@@ -1308,19 +1369,67 @@
                 </div>
                 <div class="flex flex-col justify-end space-y-3">
                     <div class="flex justify-between items-center text-sm">
-                        <span class="text-gray-500 font-medium">Subtotal:</span>
-                        <span class="font-mono text-gray-700">$ <span id="receipt-subtotal-display">0.00</span></span>
+                        <span class="text-gray-500 font-medium">Total (CUP):</span>
+                        <span class="font-mono text-gray-700"><span id="receipt-subtotal-display">0.00</span> CUP</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-gray-500 font-medium">Equivalencia (USD):</span>
+                        <span class="font-mono text-gray-700"><span id="receipt-total-usd-display">0.00</span> USD</span>
                     </div>
                     <div class="flex justify-between items-center text-xl font-bold text-purple-700 pt-2 border-t border-gray-200">
-                        <span>Total Pagado:</span>
-                        <span class="font-mono">$ <span id="receipt-total-display">0.00</span></span>
+                        <span>Total Pagado (CUP):</span>
+                        <span class="font-mono"><span id="receipt-total-display">0.00</span> CUP</span>
                     </div>
                 </div>
             </div>
-            <div class="mt-auto p-8 pt-2 border-t border-gray-200 flex justify-between items-end text-xs text-gray-400">
-                <div class="w-1/3"><p class="font-bold text-gray-500 mb-2">Firma Recibido por</p><div class="border-b border-gray-300 w-full mb-1"></div><p>Cliente</p></div>
-                <div class="text-center w-1/3"><p class="mb-1"><i class="fas fa-check-circle text-amber-600"></i> Garantía de Calidad</p><p>CSR s.r.l</p></div>
-                <div class="w-1/3 text-right"><p>Página 1 de 1</p><p class="mt-1">CSR s.r.l &copy; 2025</p></div>
+            <div class="mt-auto p-8 pt-4 border-t border-gray-200">
+                <div class="grid grid-cols-3 gap-6 text-xs text-gray-600">
+                    <div class="space-y-2">
+                        <p class="font-bold text-gray-700 text-sm uppercase border-b border-gray-300 pb-1 mb-2">Elaborado por:</p>
+                        <div>
+                            <p class="text-gray-500">Nombre:</p>
+                            <div class="border-b border-gray-400 h-6"></div>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">Carnet de Identidad:</p>
+                            <div class="border-b border-gray-400 h-6"></div>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">Firma y Cuño:</p>
+                            <div class="border-b border-gray-400 h-12"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <p class="font-bold text-gray-700 text-sm uppercase border-b border-gray-300 pb-1 mb-2">Recibido por:</p>
+                        <div>
+                            <p class="text-gray-500">Nombre:</p>
+                            <div class="border-b border-gray-400 h-6"></div>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">Carnet de Identidad:</p>
+                            <div class="border-b border-gray-400 h-6"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <p class="font-bold text-gray-700 text-sm uppercase border-b border-gray-300 pb-1 mb-2">Transportado por:</p>
+                        <div>
+                            <p class="text-gray-500">Nombres:</p>
+                            <div class="border-b border-gray-400 h-6"></div>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">Carnet de Identidad:</p>
+                            <div class="border-b border-gray-400 h-6"></div>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">Vehículo (Chapa):</p>
+                            <div class="border-b border-gray-400 h-6"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between items-end text-xs text-gray-400 mt-6 pt-4 border-t border-gray-200">
+                    <div class="text-center"><p class="mb-1"><i class="fas fa-check-circle text-amber-600"></i> Garantía de Calidad</p><p>CSR srl</p></div>
+                    <div class="text-right"><p>Página 1 de 1</p><p class="mt-1">CSR srl &copy; 2025</p></div>
+                </div>
             </div>
         </div>
     </div>
@@ -1350,7 +1459,7 @@
                         <img src="https://z-cdn-media.chatglm.cn/files/da19ba26-745d-48a2-a40b-92dc30507bcd.png?auth_key=1878023975-28977082760c48d7834f1e35c2f64fcf-0-fd277d4e7fb37ef1add4df1d3a823cf0" alt="Código QR CSR-TRADE" class="w-24 h-24 object-contain mt-2 shadow-sm print:w-16 print:h-16"> 
                     </div>
                     <div class="text-right text-xs">
-                        <p class="font-bold">CSR SRL</p>
+                        <p class="font-bold text-blue-600">CSR SRL</p>
                         <p>Calle 50 #1509 e/ Ave 15 y Ave17 municipio Playa, provincia La Habana</p>
                         <p>Teléfono 52504002</p>
                         <p class="mt-1 font-bold text-blue-900">Banco BBVA Mexico</p>
@@ -1799,8 +1908,55 @@
             document.getElementById('search-inventory').value = '';
             setActiveSidebarItem('inventory'); closeSidebar();
         }
-        function showEditor(invoiceId = null) { hideAllViews(); document.getElementById('editor-view').classList.remove('hidden'); if (invoiceId) { loadInvoice(invoiceId); } else { resetForm(); } setActiveSidebarItem('editor'); closeSidebar(); }
-        function showReceipt(receiptId = null) { hideAllViews(); document.getElementById('receipt-view').classList.remove('hidden'); if (receiptId) { loadReceipt(receiptId); } else { resetReceiptForm(); } setActiveSidebarItem('receipt'); closeSidebar(); }
+        function showEditor(invoiceId = null) { hideAllViews(); document.getElementById('editor-view').classList.remove('hidden'); syncInvoiceExchangeRate(); if (invoiceId) { loadInvoice(invoiceId); } else { resetForm(); } setActiveSidebarItem('editor'); closeSidebar(); }
+        function showReceipt(receiptId = null) { hideAllViews(); document.getElementById('receipt-view').classList.remove('hidden'); syncReceiptExchangeRate(); if (receiptId) { loadReceipt(receiptId); } else { resetReceiptForm(); } setActiveSidebarItem('receipt'); closeSidebar(); }
+        // === TASA DE CAMBIO: Factura y Recibo sincronizadas con el inventario ===
+        function syncInvoiceExchangeRate() {
+            const invInput = document.getElementById('exchange-rate-input');
+            const invoiceInput = document.getElementById('invoice-exchange-rate-input');
+            if (invoiceInput) {
+                invoiceInput.value = exchangeRate;
+                if (invInput) invInput.value = exchangeRate;
+            }
+            calculateTotal();
+        }
+        function applyInvoiceExchangeRate() {
+            const v = parseFloat(document.getElementById('invoice-exchange-rate-input').value);
+            if (isNaN(v) || v <= 0) { showToast("Tasa inválida", true); return; }
+            exchangeRate = v;
+            localStorage.setItem(RATE_KEY, exchangeRate);
+            const invInput = document.getElementById('exchange-rate-input');
+            if (invInput) invInput.value = exchangeRate;
+            const recInput = document.getElementById('receipt-exchange-rate-input');
+            if (recInput) recInput.value = exchangeRate;
+            inventory.forEach(i => i.price = i.priceUSD * exchangeRate);
+            saveInventory();
+            calculateTotal();
+            showToast("Tasa actualizada a " + exchangeRate + " CUP/USD");
+        }
+        function syncReceiptExchangeRate() {
+            const invInput = document.getElementById('exchange-rate-input');
+            const recInput = document.getElementById('receipt-exchange-rate-input');
+            if (recInput) {
+                recInput.value = exchangeRate;
+                if (invInput) invInput.value = exchangeRate;
+            }
+            calculateReceiptTotal();
+        }
+        function applyReceiptExchangeRate() {
+            const v = parseFloat(document.getElementById('receipt-exchange-rate-input').value);
+            if (isNaN(v) || v <= 0) { showToast("Tasa inválida", true); return; }
+            exchangeRate = v;
+            localStorage.setItem(RATE_KEY, exchangeRate);
+            const invInput = document.getElementById('exchange-rate-input');
+            if (invInput) invInput.value = exchangeRate;
+            const invInvoiceInput = document.getElementById('invoice-exchange-rate-input');
+            if (invInvoiceInput) invInvoiceInput.value = exchangeRate;
+            inventory.forEach(i => i.price = i.priceUSD * exchangeRate);
+            saveInventory();
+            calculateReceiptTotal();
+            showToast("Tasa actualizada a " + exchangeRate + " CUP/USD");
+        }
         function showOffer(offerId = null) {
             hideAllViews(); document.getElementById('offer-view').classList.remove('hidden');
             setActiveSidebarItem('offer'); closeSidebar();
@@ -2515,21 +2671,21 @@ function deleteWorker(id) {
                 const totalStock = (oil.stock.depo || 0) + (oil.stock.almacen || 0) + (oil.stock.oficina || 0);
                 const stockText = totalStock === 0 ? "(SIN STOCK)" : `(Disp: ${totalStock})`;
                 const disabled = totalStock === 0 ? "disabled class='text-gray-300 dark:text-gray-600'" : "";
-                options += `<option value="${oil.id}" data-price="${oil.price}" ${disabled}>${oil.name} ${stockText}</option>`;
+                options += `<option value="${oil.id}" data-price="${oil.price}" data-code="${oil.code}" data-envase="${oil.envase}" ${disabled}>${oil.name} ${stockText}</option>`;
             });
             return options;
         }
         function addNewRow(data = null) {
             const tbody = document.getElementById('invoice-items');
-            const rowId = 'row-' + Date.now();
+            const rowId = 'row-' + Date.now() + '-' + Math.floor(Math.random()*1000);
             const tr = document.createElement('tr');
             tr.className = "border-b border-gray-100 group hover:bg-gray-50 dark:hover:bg-slate-50/10 transition-colors fade-in";
             tr.id = rowId;
             const qty = data ? data.qty :1;
             const productId = data ? data.productId : "";
             const price = data ? data.price : "0.00";
-            const location = data ? data.location : "depo"; 
-            tr.innerHTML = `<td class="py-3 align-top"><input type="number" min="1" value="${qty}" class="table-row-input w-full font-bold text-center text-gray-800 dark:text-gray-200" oninput="calculateRowTotal('${rowId}')"></td><td class="py-3 align-top"><select class="product-select w-full text-gray-700 dark:text-gray-200 focus:outline-none bg-transparent" onchange="updatePriceFromSelect(this, '${rowId}')">${createProductOptions()}</select></td><td class="py-3 align-top no-print"><select class="location-select w-full font-bold text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-slate-600 rounded focus:outline-none bg-transparent" id="loc-${rowId}"><option value="depo" ${location === 'depo' ? 'selected' : ''}>Depo</option><option value="almacen" ${location === 'almacen' ? 'selected' : ''}>Almacén</option><option value="oficina" ${location === 'oficina' ? 'selected' : ''}>Oficina</option></select></td><td class="py-3 align-top text-right"><input type="number" step="0.01" value="${price}" class="table-row-input w-full font-mono text-gray-600 dark:text-gray-300 text-right" oninput="calculateRowTotal('${rowId}')"></td><td class="py-3 align-top text-right font-bold text-gray-800 dark:text-gray-200"><span class="row-total">$0.00</span></td><td class="py-3 align-middle text-center no-print"><button onclick="deleteRow('${rowId}')" class="text-gray-300 dark:text-gray-600 hover:text-red-500 transition-colors"><i class="fas fa-trash-alt"></i></button></td>`;
+            const location = data ? data.location : "depo";
+            tr.innerHTML = `<td class="py-3 align-top"><input type="number" min="1" value="${qty}" class="table-row-input w-full font-bold text-center text-gray-800 dark:text-gray-200" oninput="calculateRowTotal('${rowId}')"></td><td class="py-3 align-top text-center"><input type="text" id="code-${rowId}" value="" class="w-full text-center font-mono text-xs text-gray-600 dark:text-gray-300 bg-transparent" readonly></td><td class="py-3 align-top"><select class="product-select w-full text-gray-700 dark:text-gray-200 focus:outline-none bg-transparent" onchange="updatePriceFromSelect(this, '${rowId}')">${createProductOptions()}</select></td><td class="py-3 align-top text-center text-xs text-gray-600 dark:text-gray-300" id="unit-${rowId}">-</td><td class="py-3 align-top no-print"><select class="location-select w-full font-bold text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-slate-600 rounded focus:outline-none bg-transparent" id="loc-${rowId}"><option value="depo" ${location === 'depo' ? 'selected' : ''}>Depo</option><option value="almacen" ${location === 'almacen' ? 'selected' : ''}>Almacén</option><option value="oficina" ${location === 'oficina' ? 'selected' : ''}>Oficina</option></select></td><td class="py-3 align-top text-right"><input type="number" step="0.01" value="${price}" class="table-row-input w-full font-mono text-gray-600 dark:text-gray-300 text-right" oninput="calculateRowTotal('${rowId}')"></td><td class="py-3 align-top text-right font-bold text-gray-800 dark:text-gray-200"><span class="row-total">0.00</span></td><td class="py-3 align-top text-right font-mono text-gray-600 dark:text-gray-400"><span class="row-total-usd">0.00</span></td><td class="py-3 align-middle text-center no-print"><button onclick="deleteRow('${rowId}')" class="text-gray-300 dark:text-gray-600 hover:text-red-500 transition-colors"><i class="fas fa-trash-alt"></i></button></td>`;
             tbody.appendChild(tr);
             if(data && data.productId) {
                 const select = tr.querySelector('.product-select');
@@ -2546,6 +2702,10 @@ function deleteWorker(id) {
             if (selectedOption.value) {
                 const price = parseFloat(selectedOption.getAttribute('data-price'));
                 priceInput.value = price.toFixed(2);
+                const codeInput = row.querySelector(`#code-${rowId}`);
+                if (codeInput) codeInput.value = selectedOption.getAttribute('data-code') || '';
+                const unitCell = row.querySelector(`#unit-${rowId}`);
+                if (unitCell) unitCell.textContent = selectedOption.getAttribute('data-envase') || '-';
                 calculateRowTotal(rowId);
             }
         }
@@ -2554,7 +2714,12 @@ function deleteWorker(id) {
             const qty = parseFloat(row.querySelector('input[type="number"]').value) || 0;
             const price = parseFloat(row.querySelector('input[type="number"][step="0.01"]').value) || 0;
             const total = qty * price;
-            row.querySelector('.row-total').textContent = '$' + total.toFixed(2);
+            row.querySelector('.row-total').textContent = total.toFixed(2);
+            const usdCell = row.querySelector('.row-total-usd');
+            if (usdCell) {
+                const usd = exchangeRate > 0 ? (total / exchangeRate) : 0;
+                usdCell.textContent = usd.toFixed(2);
+            }
             calculateTotal();
         }
         function calculateTotal() {
@@ -2563,10 +2728,15 @@ function deleteWorker(id) {
                 const totalText = row.querySelector('.row-total').textContent.replace('$', '');
                 subtotal += parseFloat(totalText) || 0;
             });
-            const tax = parseFloat(document.getElementById('tax-input').value) || 0;
-            const total = subtotal + tax;
-            document.getElementById('subtotal-display').textContent = subtotal.toFixed(2);
-            document.getElementById('total-display').textContent = total.toFixed(2);
+            const total = subtotal;
+            const usdSubtotal = exchangeRate > 0 ? (subtotal / exchangeRate) : 0;
+            const usdTotal = exchangeRate > 0 ? (total / exchangeRate) : 0;
+            document.getElementById('subtotal-display').textContent = usdSubtotal.toFixed(2);
+            document.getElementById('total-display').textContent = usdTotal.toFixed(2);
+            const cupDisplay = document.getElementById('invoice-total-usd-display');
+            if (cupDisplay) {
+                cupDisplay.textContent = total.toFixed(2);
+            }
         }
         function resetForm() {
             currentInvoiceId = null;
@@ -2576,8 +2746,8 @@ function deleteWorker(id) {
             document.getElementById('client-nit').value = "";
             document.getElementById('client-address').value = "";
             document.getElementById('client-phone').value = "";
-            document.getElementById('tax-input').value = "0.00";
             document.getElementById('invoice-items').innerHTML = "";
+            syncInvoiceExchangeRate();
             addNewRow(); addNewRow(); addNewRow();
             calculateTotal();
         }
@@ -2623,8 +2793,9 @@ function deleteWorker(id) {
                 notes: document.getElementById('invoice-notes').value,
                 items: tempItems,
                 subtotal: document.getElementById('subtotal-display').textContent,
-                tax: document.getElementById('tax-input').value,
                 total: document.getElementById('total-display').textContent,
+                totalUsd: document.getElementById('invoice-total-usd-display') ? document.getElementById('invoice-total-usd-display').textContent : '0.00',
+                exchangeRate: exchangeRate,
                 totalQty: totalProducts
             };
             if (currentInvoiceId) { const index = invoices.findIndex(inv => inv.id === currentInvoiceId); if (index !== -1) invoices[index] = invoiceData; } else { invoices.push(invoiceData); }
@@ -2649,7 +2820,7 @@ function deleteWorker(id) {
             document.getElementById('client-phone').value = invoice.phone;
             document.getElementById('payment-method').value = invoice.paymentMethod;
             document.getElementById('invoice-notes').value = invoice.notes;
-            document.getElementById('tax-input').value = invoice.tax;
+            syncInvoiceExchangeRate();
             const tbody = document.getElementById('invoice-items');
             tbody.innerHTML = "";
             invoice.items.forEach(item => { addNewRow({ qty: item.qty, productId: item.productId, price: item.price, location: item.location || 'depo' }); });
@@ -2679,7 +2850,7 @@ function deleteWorker(id) {
         }
         function addReceiptRow(data = null) {
             const tbody = document.getElementById('receipt-items');
-            const rowId = 'rec-row-' + Date.now();
+            const rowId = 'rec-row-' + Date.now() + '-' + Math.floor(Math.random()*1000);
             const tr = document.createElement('tr');
             tr.className = "border-b border-gray-100 group hover:bg-gray-50 dark:hover:bg-slate-50/10 transition-colors fade-in";
             tr.id = rowId;
@@ -2687,7 +2858,7 @@ function deleteWorker(id) {
             const productId = data ? data.productId : "";
             const price = data ? data.price : "0.00";
             const location = data ? data.location : "depo"; 
-            tr.innerHTML = `<td class="py-3 align-top"><input type="number" min="1" value="${qty}" class="table-row-input w-full font-bold text-center text-gray-800 dark:text-gray-200" oninput="calculateReceiptRowTotal('${rowId}')"></td><td class="py-3 align-top"><select class="product-select w-full text-gray-700 dark:text-gray-200 focus:outline-none bg-transparent" onchange="updateReceiptPriceFromSelect(this, '${rowId}')">${createReceiptProductOptions()}</select></td><td class="py-3 align-top no-print"><select class="location-select w-full font-bold text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-slate-600 rounded focus:outline-none bg-transparent" id="rec-loc-${rowId}"><option value="depo" ${location === 'depo' ? 'selected' : ''}>Depo</option><option value="almacen" ${location === 'almacen' ? 'selected' : ''}>Almacén</option><option value="oficina" ${location === 'oficina' ? 'selected' : ''}>Oficina</option></select></td><td class="py-3 align-top text-right"><input type="number" step="0.01" value="${price}" class="table-row-input w-full font-mono text-gray-600 dark:text-gray-300 text-right" oninput="calculateReceiptRowTotal('${rowId}')"></td><td class="py-3 align-top text-right font-bold text-gray-800 dark:text-gray-200"><span class="row-total">$0.00</span></td><td class="py-3 align-middle text-center no-print"><button onclick="deleteRow('${rowId}')" class="text-gray-300 dark:text-gray-600 hover:text-red-500 transition-colors"><i class="fas fa-trash-alt"></i></button></td>`;
+            tr.innerHTML = `<td class="py-3 align-top"><input type="number" min="1" value="${qty}" class="table-row-input w-full font-bold text-center text-gray-800 dark:text-gray-200" oninput="calculateReceiptRowTotal('${rowId}')"></td><td class="py-3 align-top text-center"><input type="text" id="code-${rowId}" value="" class="w-full text-center font-mono text-xs text-gray-600 dark:text-gray-300 bg-transparent" readonly></td><td class="py-3 align-top"><select class="product-select w-full text-gray-700 dark:text-gray-200 focus:outline-none bg-transparent" onchange="updateReceiptPriceFromSelect(this, '${rowId}')">${createReceiptProductOptions()}</select></td><td class="py-3 align-top text-center text-xs text-gray-600 dark:text-gray-300" id="unit-${rowId}">-</td><td class="py-3 align-top no-print"><select class="location-select w-full font-bold text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-slate-600 rounded focus:outline-none bg-transparent" id="rec-loc-${rowId}"><option value="depo" ${location === 'depo' ? 'selected' : ''}>Depo</option><option value="almacen" ${location === 'almacen' ? 'selected' : ''}>Almacén</option><option value="oficina" ${location === 'oficina' ? 'selected' : ''}>Oficina</option></select></td><td class="py-3 align-top text-right"><input type="number" step="0.01" value="${price}" class="table-row-input w-full font-mono text-gray-600 dark:text-gray-300 text-right" oninput="calculateReceiptRowTotal('${rowId}')"></td><td class="py-3 align-top text-right font-bold text-gray-800 dark:text-gray-200"><span class="row-total">0.00</span></td><td class="py-3 align-top text-right font-mono text-gray-600 dark:text-gray-400"><span class="row-total-usd">0.00</span></td><td class="py-3 align-middle text-center no-print"><button onclick="deleteRow('${rowId}')" class="text-gray-300 dark:text-gray-600 hover:text-red-500 transition-colors"><i class="fas fa-trash-alt"></i></button></td>`;
             tbody.appendChild(tr);
             if(data && data.productId) {
                 const select = tr.querySelector('.product-select');
@@ -2703,6 +2874,10 @@ function deleteWorker(id) {
             if (selectedOption.value) {
                 const price = parseFloat(selectedOption.getAttribute('data-price'));
                 priceInput.value = price.toFixed(2);
+                const codeInput = row.querySelector(`#code-${rowId}`);
+                if (codeInput) codeInput.value = selectedOption.getAttribute('data-code') || '';
+                const unitCell = row.querySelector(`#unit-${rowId}`);
+                if (unitCell) unitCell.textContent = selectedOption.getAttribute('data-envase') || '-';
                 calculateReceiptRowTotal(rowId);
             }
         }
@@ -2711,7 +2886,12 @@ function deleteWorker(id) {
             const qty = parseFloat(row.querySelector('input[type="number"]').value) || 0;
             const price = parseFloat(row.querySelector('input[type="number"][step="0.01"]').value) || 0;
             const total = qty * price;
-            row.querySelector('.row-total').textContent = '$' + total.toFixed(2);
+            row.querySelector('.row-total').textContent = total.toFixed(2);
+            const usdCell = row.querySelector('.row-total-usd');
+            if (usdCell) {
+                const usd = exchangeRate > 0 ? (total / exchangeRate) : 0;
+                usdCell.textContent = usd.toFixed(2);
+            }
             calculateReceiptTotal();
         }
         function calculateReceiptTotal() {
@@ -2722,6 +2902,11 @@ function deleteWorker(id) {
             });
             document.getElementById('receipt-subtotal-display').textContent = subtotal.toFixed(2);
             document.getElementById('receipt-total-display').textContent = subtotal.toFixed(2);
+            const usdDisplay = document.getElementById('receipt-total-usd-display');
+            if (usdDisplay) {
+                const usd = exchangeRate > 0 ? (subtotal / exchangeRate) : 0;
+                usdDisplay.textContent = usd.toFixed(2);
+            }
         }
         function resetReceiptForm() {
             currentReceiptId = null;
@@ -2731,8 +2916,9 @@ function deleteWorker(id) {
             document.getElementById('receipt-client-nit').value = "";
             document.getElementById('receipt-client-address').value = "";
             document.getElementById('receipt-client-phone').value = "";
-            document.getElementById('receipt-notes').value = "";
+            document.getElementById('receipt-notes').value = "Los precios expresados son en Moneda Nacional (CUP). El pago debe realizarse contra entrega. Gracias por su compra.";
             document.getElementById('receipt-items').innerHTML = "";
+            syncReceiptExchangeRate();
             addReceiptRow(); addReceiptRow(); addReceiptRow(); 
             calculateReceiptTotal();
         }
@@ -2779,6 +2965,8 @@ function deleteWorker(id) {
                 items: tempItems,
                 subtotal: document.getElementById('receipt-subtotal-display').textContent,
                 total: document.getElementById('receipt-total-display').textContent,
+                totalUsd: document.getElementById('receipt-total-usd-display') ? document.getElementById('receipt-total-usd-display').textContent : '0.00',
+                exchangeRate: exchangeRate,
                 totalQty: totalProducts
             };
             if (currentReceiptId) { const index = receipts.findIndex(r => r.id === currentReceiptId); if (index !== -1) receipts[index] = receiptData; } else { receipts.push(receiptData); }
@@ -2803,6 +2991,7 @@ function deleteWorker(id) {
             document.getElementById('receipt-client-phone').value = receipt.phone;
             document.getElementById('receipt-payment-method').value = receipt.paymentMethod;
             document.getElementById('receipt-notes').value = receipt.notes;
+            syncReceiptExchangeRate();
             const tbody = document.getElementById('receipt-items');
             tbody.innerHTML = "";
             receipt.items.forEach(item => { addReceiptRow({ qty: item.qty, productId: item.productId, price: item.price, location: item.location || 'depo' }); });
