@@ -151,15 +151,81 @@
             bottom: 50px;
         }
 
+        /* Campos editables de firmas (líneas) */
+        .signature-input {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid #9ca3af;
+            background: transparent;
+            padding: 2px 4px;
+            font-size: 0.75rem;
+            color: #374151;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .signature-input:focus {
+            border-bottom-color: var(--primary-color);
+            background-color: rgba(251, 191, 36, 0.08);
+        }
+        .dark .signature-input {
+            border-bottom-color: #475569;
+            color: #e2e8f0;
+        }
+        .dark .signature-input:focus {
+            border-bottom-color: #d97706;
+            background-color: rgba(217, 119, 6, 0.1);
+        }
+
         @media print {
             @page { size: A4; margin: 0; }
             body { background: white; color: black; -webkit-print-color-adjust: exact; print-color-adjust: exact; margin: 0; padding: 0; }
-            .no-print, #dashboard-view, #inventory-view, #clients-view, #finance-view, #sidebar, #sidebar-toggle, #sidebar-overlay, #login-screen, #toast { display: none !important; }
+            .no-print, #dashboard-view, #clients-view, #finance-view, #sidebar, #sidebar-toggle, #sidebar-overlay, #login-screen, #toast { display: none !important; }
             .main-content { margin-left: 0 !important; }
             #editor-view:not(.hidden), #offer-view:not(.hidden), #receipt-view:not(.hidden) { display: block !important; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 9999; }
             #offer-view { padding-top: 0 !important; padding-bottom: 0 !important; }
             #editor-view { padding-top: 0 !important; padding-bottom: 0 !important; }
             #receipt-view { padding-top: 0 !important; padding-bottom: 0 !important; }
+
+            /* === IMPRESIÓN DE INVENTARIO === */
+            body.printing-inventory #inventory-view { display: block !important; position: absolute; top: 0; left: 0; width: 100%; min-height: 100%; background: white; z-index: 9999; padding: 15mm 10mm !important; margin: 0; box-sizing: border-box; }
+            body.printing-inventory #inventory-view .no-print { display: none !important; }
+            body.printing-inventory #inventory-view h2 { font-size: 18pt !important; margin-bottom: 4mm !important; color: #1f2937 !important; }
+            body.printing-inventory #inventory-view .grid.grid-cols-1.md\:grid-cols-4 { display: grid !important; grid-template-columns: repeat(4, 1fr); gap: 4mm !important; margin-bottom: 6mm !important; }
+            body.printing-inventory #inventory-view .grid.grid-cols-1.md\:grid-cols-4 > div { background: #f9fafb !important; border: 1px solid #e5e7eb !important; border-radius: 6px !important; padding: 3mm !important; box-shadow: none !important; }
+            body.printing-inventory #inventory-view .grid.grid-cols-1.md\:grid-cols-4 .text-2xl { font-size: 16pt !important; }
+            body.printing-inventory #inventory-view .grid.grid-cols-1.md\:grid-cols-4 .text-xs { font-size: 7pt !important; }
+            body.printing-inventory #inventory-view table { width: 100% !important; font-size: 8pt !important; border-collapse: collapse !important; }
+            body.printing-inventory #inventory-view thead { background: #1f2937 !important; }
+            body.printing-inventory #inventory-view thead th { color: white !important; padding: 2mm 2mm !important; font-size: 7pt !important; text-transform: uppercase; }
+            body.printing-inventory #inventory-view tbody td { padding: 1.5mm 2mm !important; border-bottom: 0.5px solid #e5e7eb !important; color: #1f2937 !important; }
+            body.printing-inventory #inventory-view tbody tr { page-break-inside: avoid; }
+            body.printing-inventory #inventory-view .mini-stock-input, body.printing-inventory #inventory-view .price-usd-input { border: none !important; background: transparent !important; box-shadow: none !important; width: auto !important; }
+            body.printing-inventory #inventory-view button { display: none !important; }
+            body.printing-inventory #inventory-view .hover\:bg-gray-50 { background: transparent !important; }
+            body.printing-inventory #inventory-view .bg-white { background: white !important; }
+            body.printing-inventory #inventory-view .dark\:bg-slate-800 { background: white !important; }
+            body.printing-inventory #inventory-view .dark\:bg-slate-700 { background: white !important; }
+            body.printing-inventory #inventory-view .dark\:text-white { color: #1f2937 !important; }
+            body.printing-inventory #inventory-view .dark\:text-gray-200 { color: #374151 !important; }
+            body.printing-inventory #inventory-view .dark\:text-gray-300 { color: #4b5563 !important; }
+            body.printing-inventory #inventory-view .dark\:text-gray-400 { color: #6b7280 !important; }
+            body.printing-inventory #inventory-view .dark\:bg-slate-900 { background: #f3f4f6 !important; }
+            body.printing-inventory #inventory-view .dark\:divide-slate-700 { border-color: #e5e7eb !important; }
+            body.printing-inventory #inventory-view .dark\:hover\:bg-slate-700 { background: transparent !important; }
+            body.printing-inventory #inventory-view .bg-blue-50, body.printing-inventory #inventory-view .bg-indigo-50, body.printing-inventory #inventory-view .bg-purple-50, body.printing-inventory #inventory-view .bg-green-50, body.printing-inventory #inventory-view .bg-teal-50, body.printing-inventory #inventory-view .bg-gray-50 { background: #f9fafb !important; }
+            body.printing-inventory #inventory-view .bg-amber-50 { background: #fffbeb !important; }
+            body.printing-inventory #inventory-view .shadow { box-shadow: none !important; }
+            body.printing-inventory #inventory-view .rounded-lg { border-radius: 4px !important; }
+            body.printing-inventory #inventory-view .sales-bar-container { display: none !important; }
+            body.printing-inventory #inventory-view canvas { display: none !important; }
+            body.printing-inventory #inventory-view .fade-in { animation: none !important; }
+            body.printing-inventory #inventory-view .flex.items-center.justify-center.gap-1 { display: flex !important; gap: 1mm !important; }
+            body.printing-inventory #inventory-view .smart-search-bar { border: none !important; box-shadow: none !important; }
+            body.printing-inventory #inventory-view #print-inventory-header { display: flex !important; justify-content: space-between; align-items: center; margin-bottom: 4mm; padding-bottom: 3mm; border-bottom: 2px solid #d97706; }
+            body.printing-inventory #inventory-view #print-inventory-header .print-company-name { font-size: 16pt !important; font-weight: 800 !important; color: #1e40af !important; }
+            body.printing-inventory #inventory-view #print-inventory-header .print-report-title { font-size: 12pt !important; font-weight: 700 !important; color: #374151 !important; }
+            body.printing-inventory #inventory-view #print-inventory-header .print-date-info { font-size: 8pt !important; color: #6b7280 !important; text-align: right; }
+            body.printing-inventory #inventory-view #print-inventory-footer { display: block !important; margin-top: 5mm; padding-top: 3mm; border-top: 1px solid #d1d5db; text-align: center; font-size: 7pt !important; color: #9ca3af !important; }
             #invoice-container, #offer-container, #receipt-container { width: 210mm; height: 297mm; max-width: none; margin: 0 auto; box-shadow: none; border: none; padding: 15px !important; overflow: hidden; box-sizing: border-box; position: relative; }
             .editable-input { border: none !important; padding: 0 !important; background: transparent !important; border-radius: 0; color: black !important; height: auto !important; }
             .table-row-input { border: none !important; background: transparent !important; width: auto; min-width: 20px; text-align: center; color: black !important; }
@@ -179,6 +245,8 @@
             #offer-container .p-8 { padding: 10px !important; }
             #invoice-container table td, #invoice-container table th { padding: 4px !important; }
             #receipt-container table td, #receipt-container table th { padding: 4px !important; }
+            /* Ocultar bordes punteados y fondos de los campos editables de firma al imprimir */
+            .signature-input { border-bottom: 1px solid #000 !important; background: transparent !important; }
         }
 
         .fade-in { animation: fadeIn 0.3s ease-in-out; }
@@ -1003,7 +1071,19 @@
 
     <!-- VISTA INVENTARIO (MODIFICADA CON VENTAS) -->
     <div id="inventory-view" class="hidden pt-8 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto fade-in">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+        <!-- Cabecera de impresión (solo visible al imprimir) -->
+        <div id="print-inventory-header" class="hidden">
+            <div>
+                <div class="print-company-name">CSR s.r.l</div>
+                <div class="print-report-title" id="print-inv-title">Reporte de Inventario Multi-Sede</div>
+            </div>
+            <div class="print-date-info" id="print-inv-date-info"></div>
+        </div>
+
+        <!-- Pie de impresión (solo visible al imprimir) -->
+        <div id="print-inventory-footer" class="hidden">CSR s.r.l — Calle 19 e/ 60 y 62, Playa, Habana — +53 56578961 — csrhabana@gmail.com — Documento generado automáticamente</div>
+
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 no-print">
             <div>
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Gestión de Inventario Multi-Sede</h2>
                 <p class="text-gray-500 dark:text-gray-400 text-sm">Controla el stock y compara con ventas mensuales.</p>
@@ -1030,6 +1110,8 @@
                     <button onclick="updateExchangeRate()" class="bg-amber-600 text-white hover:bg-amber-700 px-3 py-1 rounded text-xs font-bold transition shadow ml-1">Aplicar</button>
                 </div>
                 <button onclick="resetInventory()" class="text-xs bg-gray-200 dark:bg-slate-700 hover:bg-gray-300 dark:hover:bg-slate-600 text-gray-700 dark:text-gray-200 px-3 py-2 rounded transition-colors border border-gray-300 dark:border-slate-600 whitespace-nowrap"><i class="fas fa-undo mr-1"></i> Reiniciar</button>
+                <button onclick="printInventory()" class="text-xs bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg transition-all shadow-md hover:shadow-lg flex items-center gap-2 whitespace-nowrap font-bold"><i class="fas fa-file-pdf"></i> Guardar PDF</button>
+                <button onclick="printInventory()" class="text-xs bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded-lg transition-all shadow-md hover:shadow-lg flex items-center gap-2 whitespace-nowrap font-bold"><i class="fas fa-print"></i> Imprimir</button>
             </div>
         </div>
 
@@ -1116,7 +1198,7 @@
         </div>
     </div>
 
-    <!-- VISTA EDITOR (FACTURA) -->
+    <!-- VISTA EDITOR (FACTURA) - CON COLUMNA TOTAL POR PRODUCTO -->
     <div id="editor-view" class="hidden pt-4 pb-12 bg-gray-100 dark:bg-slate-900 min-h-screen transition-colors duration-300">
         <div class="max-w-[210mm] mx-auto px-4 mb-4 no-print">
             <button onclick="showDashboard()" class="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium transition-colors"><i class="fas fa-arrow-left"></i> Volver al Panel</button>
@@ -1174,11 +1256,15 @@
                             <option>EUR (Cash)</option>
                         </select>
                     </div>
+                    <!-- TASA CUP/USD SIN BOTÓN APLICAR Y EN BLANCO -->
                     <div class="flex items-center gap-2 bg-amber-50 dark:bg-amber-900/30 px-4 py-2 rounded-lg border border-amber-200 dark:border-amber-800 shadow-sm w-full">
                         <i class="fas fa-exchange-alt text-amber-600"></i>
                         <span class="text-sm font-bold text-amber-800 dark:text-amber-200 uppercase tracking-wide">Tasa CUP/USD:</span>
-                        <input type="number" id="invoice-exchange-rate-input" class="w-24 border border-amber-300 dark:border-amber-700 rounded px-2 py-1 text-center font-bold text-amber-900 dark:text-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white dark:bg-slate-700" value="540" onchange="syncInvoiceExchangeRate()">
-                        <button onclick="applyInvoiceExchangeRate()" class="bg-amber-600 text-white hover:bg-amber-700 px-3 py-1 rounded text-xs font-bold transition shadow ml-1">Aplicar</button>
+                        <input type="number" id="invoice-exchange-rate-input" 
+                               class="w-24 border border-amber-300 dark:border-amber-700 rounded px-2 py-1 text-center font-bold text-amber-900 dark:text-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white dark:bg-slate-700" 
+                               value="" 
+                               placeholder="0.00"
+                               onchange="syncInvoiceExchangeRate()">
                     </div>
                     <div>
                         <p class="text-xs text-gray-400 font-bold mb-1">Comercial</p>
@@ -1190,14 +1276,11 @@
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="border-b-2 border-gray-900">
-                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider w-12">Cant.</th>
-                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider w-24">Código</th>
                             <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider">Descripción</th>
                             <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider w-20">Unidad</th>
-                            <th class="py-3 text-xs font-bold text-gray-400 uppercase tracking-wider w-24 no-print">Origen</th>
-                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider text-right w-28">Precio Unit. (CUP)</th>
-                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider text-right w-28">Total (CUP)</th>
-                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider text-right w-28">Equiv. (USD)</th>
+                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider w-16 text-center">Cant.</th>
+                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider text-right w-28">Precio Unit. (USD)</th>
+                            <th class="py-3 text-xs font-bold text-gray-500 uppercase tracking-wider text-right w-28">Total (USD)</th>
                             <th class="py-3 w-10 no-print"></th>
                         </tr>
                     </thead>
@@ -1208,17 +1291,9 @@
             <div class="p-8 grid grid-cols-3 gap-8 mt-4 border-t border-gray-200">
                 <div class="col-span-2">
                     <h3 class="text-xs font-bold text-gray-400 uppercase mb-3">Términos y Notas:</h3>
-                    <textarea id="invoice-notes" class="editable-input text-xs text-gray-600 h-24 w-full leading-relaxed">Los precios expresados son en Moneda Nacional (CUP). El pago debe realizarse contra entrega. Los productos aceites no tienen devolución una vez abiertos.</textarea>
+                    <textarea id="invoice-notes" class="editable-input text-xs text-gray-600 h-24 w-full leading-relaxed">Los precios expresados son en USD. El pago debe realizarse contra entrega. Los productos aceites no tienen devolución una vez abiertos.</textarea>
                 </div>
                 <div class="flex flex-col justify-end space-y-3">
-                    <div class="flex justify-between items-center text-sm">
-                        <span class="text-gray-500 font-medium">Total en (CUP):</span>
-                        <span class="font-mono text-gray-700"><span id="invoice-total-usd-display">0.00</span> CUP</span>
-                    </div>
-                    <div class="flex justify-between items-center text-sm">
-                        <span class="text-gray-500 font-medium">Equivalencia (USD):</span>
-                        <span class="font-mono text-gray-700"><span id="subtotal-display">0.00</span> USD</span>
-                    </div>
                     <div class="flex justify-between items-center text-xl font-bold text-amber-700 pt-2 border-t border-gray-200">
                         <span>Total a Pagar (USD):</span>
                         <span class="font-mono"><span id="total-display">0.00</span> USD</span>
@@ -1231,41 +1306,41 @@
                         <p class="font-bold text-gray-700 text-sm uppercase border-b border-gray-300 pb-1 mb-2">Elaborado por:</p>
                         <div>
                             <p class="text-gray-500">Nombre:</p>
-                            <div class="border-b border-gray-400 h-6"></div>
+                            <input type="text" id="elaborado-nombre" class="signature-input" placeholder="Nombre completo">
                         </div>
                         <div>
                             <p class="text-gray-500">Carnet de Identidad:</p>
-                            <div class="border-b border-gray-400 h-6"></div>
+                            <input type="text" id="elaborado-ci" class="signature-input" placeholder="Carnet">
                         </div>
                         <div>
                             <p class="text-gray-500">Firma y Cuño:</p>
-                            <div class="border-b border-gray-400 h-12"></div>
+                            <input type="text" id="elaborado-firma" class="signature-input" placeholder="Firma">
                         </div>
                     </div>
                     <div class="space-y-2">
                         <p class="font-bold text-gray-700 text-sm uppercase border-b border-gray-300 pb-1 mb-2">Recibido por:</p>
                         <div>
                             <p class="text-gray-500">Nombre:</p>
-                            <div class="border-b border-gray-400 h-6"></div>
+                            <input type="text" id="recibido-nombre" class="signature-input" placeholder="Nombre completo">
                         </div>
                         <div>
                             <p class="text-gray-500">Carnet de Identidad:</p>
-                            <div class="border-b border-gray-400 h-6"></div>
+                            <input type="text" id="recibido-ci" class="signature-input" placeholder="Carnet">
                         </div>
                     </div>
                     <div class="space-y-2">
                         <p class="font-bold text-gray-700 text-sm uppercase border-b border-gray-300 pb-1 mb-2">Transportado por:</p>
                         <div>
                             <p class="text-gray-500">Nombres:</p>
-                            <div class="border-b border-gray-400 h-6"></div>
+                            <input type="text" id="transportado-nombre" class="signature-input" placeholder="Nombres">
                         </div>
                         <div>
                             <p class="text-gray-500">Carnet de Identidad:</p>
-                            <div class="border-b border-gray-400 h-6"></div>
+                            <input type="text" id="transportado-ci" class="signature-input" placeholder="Carnet">
                         </div>
                         <div>
                             <p class="text-gray-500">Vehículo (Chapa):</p>
-                            <div class="border-b border-gray-400 h-6"></div>
+                            <input type="text" id="transportado-chapa" class="signature-input" placeholder="Chapa">
                         </div>
                     </div>
                 </div>
@@ -1335,11 +1410,15 @@
                             <option>EUR (Cash)</option>
                         </select>
                     </div>
+                    <!-- TASA CUP/USD SIN BOTÓN APLICAR Y EN BLANCO -->
                     <div class="flex items-center gap-2 bg-purple-50 dark:bg-purple-900/30 px-4 py-2 rounded-lg border border-purple-200 dark:border-purple-800 shadow-sm w-full">
                         <i class="fas fa-exchange-alt text-purple-600"></i>
                         <span class="text-sm font-bold text-purple-800 dark:text-purple-200 uppercase tracking-wide">Tasa CUP/USD:</span>
-                        <input type="number" id="receipt-exchange-rate-input" class="w-24 border border-purple-300 dark:border-purple-700 rounded px-2 py-1 text-center font-bold text-purple-900 dark:text-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white dark:bg-slate-700" value="540" onchange="syncReceiptExchangeRate()">
-                        <button onclick="applyReceiptExchangeRate()" class="bg-purple-600 text-white hover:bg-purple-700 px-3 py-1 rounded text-xs font-bold transition shadow ml-1">Aplicar</button>
+                        <input type="number" id="receipt-exchange-rate-input" 
+                               class="w-24 border border-purple-300 dark:border-purple-700 rounded px-2 py-1 text-center font-bold text-purple-900 dark:text-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white dark:bg-slate-700" 
+                               value="" 
+                               placeholder="0.00"
+                               onchange="syncReceiptExchangeRate()">
                     </div>
                 </div>
             </div>
@@ -1388,41 +1467,41 @@
                         <p class="font-bold text-gray-700 text-sm uppercase border-b border-gray-300 pb-1 mb-2">Elaborado por:</p>
                         <div>
                             <p class="text-gray-500">Nombre:</p>
-                            <div class="border-b border-gray-400 h-6"></div>
+                            <input type="text" id="receipt-elaborado-nombre" class="signature-input" placeholder="Nombre completo">
                         </div>
                         <div>
                             <p class="text-gray-500">Carnet de Identidad:</p>
-                            <div class="border-b border-gray-400 h-6"></div>
+                            <input type="text" id="receipt-elaborado-ci" class="signature-input" placeholder="Carnet">
                         </div>
                         <div>
                             <p class="text-gray-500">Firma y Cuño:</p>
-                            <div class="border-b border-gray-400 h-12"></div>
+                            <input type="text" id="receipt-elaborado-firma" class="signature-input" placeholder="Firma">
                         </div>
                     </div>
                     <div class="space-y-2">
                         <p class="font-bold text-gray-700 text-sm uppercase border-b border-gray-300 pb-1 mb-2">Recibido por:</p>
                         <div>
                             <p class="text-gray-500">Nombre:</p>
-                            <div class="border-b border-gray-400 h-6"></div>
+                            <input type="text" id="receipt-recibido-nombre" class="signature-input" placeholder="Nombre completo">
                         </div>
                         <div>
                             <p class="text-gray-500">Carnet de Identidad:</p>
-                            <div class="border-b border-gray-400 h-6"></div>
+                            <input type="text" id="receipt-recibido-ci" class="signature-input" placeholder="Carnet">
                         </div>
                     </div>
                     <div class="space-y-2">
                         <p class="font-bold text-gray-700 text-sm uppercase border-b border-gray-300 pb-1 mb-2">Transportado por:</p>
                         <div>
                             <p class="text-gray-500">Nombres:</p>
-                            <div class="border-b border-gray-400 h-6"></div>
+                            <input type="text" id="receipt-transportado-nombre" class="signature-input" placeholder="Nombres">
                         </div>
                         <div>
                             <p class="text-gray-500">Carnet de Identidad:</p>
-                            <div class="border-b border-gray-400 h-6"></div>
+                            <input type="text" id="receipt-transportado-ci" class="signature-input" placeholder="Carnet">
                         </div>
                         <div>
                             <p class="text-gray-500">Vehículo (Chapa):</p>
-                            <div class="border-b border-gray-400 h-6"></div>
+                            <input type="text" id="receipt-transportado-chapa" class="signature-input" placeholder="Chapa">
                         </div>
                     </div>
                 </div>
@@ -1434,88 +1513,113 @@
         </div>
     </div>
 
-    <!-- VISTA OFERTA -->
-    <div id="offer-view" class="hidden pt-4 pb-12 bg-gray-100 dark:bg-slate-900 min-h-screen transition-colors duration-300">
-        <div class="max-w-[210mm] mx-auto px-4 mb-4 no-print flex justify-between items-center">
-            <button onclick="showDashboard()" class="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium transition-colors"><i class="fas fa-arrow-left"></i> Volver al Panel</button>
-            <div class="flex gap-2">
-                 <div class="flex items-center gap-2 bg-white dark:bg-slate-800 px-3 py-2 rounded shadow border border-gray-300 dark:border-slate-700">
-                    <span class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">Estado:</span>
-                    <select id="offer-status-select" onchange="updateCurrentOfferStatus(this.value)" class="text-sm font-bold border-none focus:ring-0 p-0 bg-transparent dark:text-gray-200">
-                        <option value="pendiente" class="text-yellow-700">Pendiente</option>
-                        <option value="emitida" class="text-blue-700">Emitida</option>
-                        <option value="confirmada" class="text-green-700">Confirmada</option>
-                    </select>
-                </div>
-                <button onclick="saveOffer()" class="bg-gray-900 dark:bg-slate-800 hover:bg-black dark:hover:bg-slate-700 text-white px-4 py-2 rounded shadow-md text-sm font-bold flex items-center gap-2"><i class="fas fa-save"></i> Guardar</button>
-                <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow-md text-sm font-bold flex items-center gap-2"><i class="fas fa-print"></i> Imprimir</button>
+  <!-- VISTA OFERTA -->
+<div id="offer-view" class="hidden pt-4 pb-12 bg-gray-100 dark:bg-slate-900 min-h-screen transition-colors duration-300">
+    <div class="max-w-[210mm] mx-auto px-4 mb-4 no-print flex justify-between items-center">
+        <button onclick="showDashboard()" class="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium transition-colors"><i class="fas fa-arrow-left"></i> Volver al Panel</button>
+        <div class="flex gap-2">
+             <div class="flex items-center gap-2 bg-white dark:bg-slate-800 px-3 py-2 rounded shadow border border-gray-300 dark:border-slate-700">
+                <span class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">Estado:</span>
+                <select id="offer-status-select" onchange="updateCurrentOfferStatus(this.value)" class="text-sm font-bold border-none focus:ring-0 p-0 bg-transparent dark:text-gray-200">
+                    <option value="pendiente" class="text-yellow-700">Pendiente</option>
+                    <option value="emitida" class="text-blue-700">Emitida</option>
+                    <option value="confirmada" class="text-green-700">Confirmada</option>
+                </select>
             </div>
-        </div>
-        <div id="offer-container" class="max-w-[210mm] min-h-[297mm] mx-auto bg-white shadow-2xl relative box-border p-8 text-sm overflow-hidden">
-            <div class="border-b-2 border-black pb-4 mb-4">
-                <div class="flex justify-between items-start mb-4">
-                    <div class="flex flex-col items-center">
-                        <img src="https://z-cdn-media.chatglm.cn/files/60f930bf-dcb8-4094-a695-2ffc3383893f.jpg?auth_key=1878022568-bd162214d4c1439d9e2169d746f4429b-0-6f0085f93cc190d47ae3b4cd8b70b7e5" alt="CSR Logo" class="h-24 w-auto object-contain mb-2 print:w-16 print:h-auto"> 
-                        <img src="https://z-cdn-media.chatglm.cn/files/da19ba26-745d-48a2-a40b-92dc30507bcd.png?auth_key=1878023975-28977082760c48d7834f1e35c2f64fcf-0-fd277d4e7fb37ef1add4df1d3a823cf0" alt="Código QR CSR-TRADE" class="w-24 h-24 object-contain mt-2 shadow-sm print:w-16 print:h-16"> 
-                    </div>
-                    <div class="text-right text-xs">
-                        <p class="font-bold text-blue-600">CSR SRL</p>
-                        <p>Calle 50 #1509 e/ Ave 15 y Ave17 municipio Playa, provincia La Habana</p>
-                        <p>Teléfono 52504002</p>
-                        <p class="mt-1 font-bold text-blue-900">Banco BBVA Mexico</p>
-                        <p>No. Cta. Bancaria: 0074-5764-26-154838086</p>
-                        <p>Clave: 012 691 015483808677 </p>
-                        <p>Código Swift: BCMRMXMMPYM</p>
-                        <a href="https://csr-trade.com/aceite" class="block mt-2 font-bold text-blue-800 hover:underline">csr-trade.com</a>
-                    </div>
-                </div>
-                <div class="text-center my-4"><h1 class="text-2xl font-black tracking-widest border-y border-black py-1 inline-block px-8 uppercase">Oferta Comercial</h1></div>
-                <div class="text-center font-bold text-xl">No. <input type="text" id="offer-number" value="004-2026" class="border-b border-black w-24 text-center editable-input"></div>
-            </div>
-            <div class="grid grid-cols-2 gap-4 mb-6 text-xs">
-                <div class="border border-gray-400 p-2 rounded"><p class="font-bold uppercase text-gray-600">Dirección de Factura</p><p class="font-bold text-black mt-1">Cliente:</p><input type="text" id="offer-client" class="editable-input font-bold text-gray-900 text-base" placeholder="Nombre del Cliente"></div>
-                <div class="border border-gray-400 p-2 rounded"><p class="font-bold uppercase text-gray-600">Dirección de Entrega</p><p class="font-bold text-black mt-1">Oficina: Calle 19 e/ 60 y 62 #6012 en Playa, Habana, Cuba</p><p class="font-bold text-black mt-1">Depósito: Calle 240 y 81 atrás de la empresa Mercedes y frente de la fábrica del gas, La Lisa</p></div>
-            </div>
-            <div class="grid grid-cols-4 gap-4 mb-4 text-xs border-b border-gray-300 pb-2">
-                <div><p class="text-gray-500">Almacén:</p><input type="text" value="01" class="editable-input font-bold"></div>
-                <div class="col-span-2"><p class="text-gray-500">Confeccionado por:</p><input type="text" value="Jorge Arides Estevez" class="editable-input font-bold"></div>
-                <div><p class="text-gray-500">Moneda:</p><input type="text" value="USD" class="editable-input font-bold text-center uppercase bg-yellow-50"></div>
-                <div class="col-span-3"><p class="text-gray-500">Solicitud:</p><input type="text" id="offer-request" value="004" class="editable-input font-bold"></div>
-            </div>
-            <div class="overflow-x-auto mb-6">
-                <table class="w-full border-collapse text-xs">
-                    <thead>
-                        <tr class="bg-gray-100 border border-black">
-                            <th class="border border-black p-2 w-16">Alm</th>
-                            <th class="border border-black p-2 w-24">Código</th>
-                            <th class="border border-black p-2">Producto/Servicio/Comentario</th>
-                            <th class="border border-black p-2 w-16 text-center">Cantidad</th>
-                            <th class="border border-black p-2 w-24">Envase</th>
-                            <th class="border border-black p-2 w-24 text-right">Precio Bruto USD</th>
-                            <th class="border border-black p-2 w-24 text-right">Importe USD</th>
-                            <th class="w-8 no-print"></th>
-                        </tr>
-                    </thead>
-                    <tbody id="offer-items"></tbody>
-                    <tfoot>
-                        <tr class="font-bold bg-gray-50">
-                            <td colspan="6" class="border border-black p-2 text-right">TOTAL</td>
-                            <td class="border border-black p-2 text-right" id="offer-total-display">0.00</td>
-                            <td></td>
-                        </tr>
-                    </tfoot>
-                </table>
-                <button onclick="addOfferRow()" class="mt-2 text-blue-600 hover:text-blue-800 font-semibold text-xs flex items-center gap-2 transition-colors no-print"><i class="fas fa-plus-circle"></i> Agregar Item</button>
-            </div>
-            <div class="grid grid-cols-3 gap-4 mt-8 pt-4 border-t border-gray-300 text-xs">
-                <div class="flex flex-col justify-between"><span class="font-bold">Hoja</span><div class="border-b border-gray-400 flex-grow"></div></div>
-                <div class="flex flex-col justify-between"><span class="font-bold">Impreso por</span><div class="border-b border-gray-400 flex-grow"></div></div>
-                <div class="flex flex-col justify-between"><span class="font-bold">Recibido por (Nombre y Apellidos)</span><div class="border-b border-gray-400 flex-grow"></div><span class="font-bold mt-2">Importe Total</span><span class="border p-1 bg-yellow-50 text-center font-bold" id="offer-total-footer">0.00</span></div>
-            </div>
-            <div class="mt-4 text-center text-xs font-bold border-t border-black pt-2">Atención al Cliente: Teléfono: ________________ (Horario: 8:30 a 4:00 pm)</div>
+            <button onclick="saveOffer()" class="bg-gray-900 dark:bg-slate-800 hover:bg-black dark:hover:bg-slate-700 text-white px-4 py-2 rounded shadow-md text-sm font-bold flex items-center gap-2"><i class="fas fa-save"></i> Guardar</button>
+            <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow-md text-sm font-bold flex items-center gap-2"><i class="fas fa-print"></i> Imprimir</button>
         </div>
     </div>
+    <div id="offer-container" class="max-w-[210mm] min-h-[297mm] mx-auto bg-white shadow-2xl relative box-border p-6 text-[11px] overflow-hidden">
+        <div class="border-b-2 border-black pb-3 mb-3">
+            <div class="flex justify-between items-start mb-3">
+                <div class="flex flex-col items-center">
+                    <img src="https://z-cdn-media.chatglm.cn/files/60f930bf-dcb8-4094-a695-2ffc3383893f.jpg?auth_key=1878022568-bd162214d4c1439d9e2169d746f4429b-0-6f0085f93cc190d47ae3b4cd8b70b7e5" alt="CSR Logo" class="h-20 w-auto object-contain mb-1 print:w-14 print:h-auto"> 
+                    <img src="https://z-cdn-media.chatglm.cn/files/da19ba26-745d-48a2-a40b-92dc30507bcd.png?auth_key=1878023975-28977082760c48d7834f1e35c2f64fcf-0-fd277d4e7fb37ef1add4df1d3a823cf0" alt="Código QR CSR-TRADE" class="w-20 h-20 object-contain mt-1 shadow-sm print:w-14 print:h-14"> 
+                </div>
+                <div class="text-right text-[10px] leading-tight">
+                    <p class="font-bold text-blue-600">CSR SRL</p>
+                    <p>Calle 50 #1509 e/ Ave 15 y Ave17 municipio Playa, provincia La Habana</p>
+                    <p>Teléfono 52504002</p>
+                    <p class="mt-1 font-bold text-blue-900">Banco BBVA Mexico</p>
+                    <p>No. Cta. Bancaria: 0074-5764-26-154838086</p>
+                    <p>Clave: 012 691 015483808677 </p>
+                    <p>Código Swift: BCMRMXMMPYM</p>
+                    <a href="https://csr-trade.com/aceite" class="block mt-1 font-bold text-blue-800 hover:underline">csr-trade.com</a>
+                </div>
+            </div>
+            <div class="text-center my-3"><h1 class="text-xl font-black tracking-widest border-y border-black py-1 inline-block px-6 uppercase">Oferta Comercial</h1></div>
+            <div class="text-center font-bold text-lg">No. <input type="text" id="offer-number" value="004-2026" class="border-b border-black w-24 text-center editable-input"></div>
+        </div>
 
+        <!-- Dirección de entrega -->
+        <div class="mb-2 text-[10px]">
+            <div class="border border-gray-400 p-2 rounded">
+                <p class="font-bold uppercase text-gray-600 text-[9px]">Dirección de Entrega</p>
+                <p class="font-bold text-black mt-1">Oficina: Calle 19 e/ 60 y 62 #6012 en Playa, Habana, Cuba</p>
+                <p class="font-bold text-black mt-1">Depósito: Calle 240 y 81 atrás de la empresa Mercedes y frente de la fábrica del gas, La Lisa</p>
+            </div>
+        </div>
+
+        <!-- Cliente (fila completa, más espacio) -->
+        <div class="mb-2">
+            <p class="text-gray-500 text-[10px] font-bold uppercase">Cliente:</p>
+            <input type="text" id="offer-client" class="editable-input font-bold text-gray-900 text-sm w-full" placeholder="Nombre del Cliente / Empresa">
+        </div>
+
+        <!-- Fila compacta: Almacén, Moneda, Confeccionado, Solicitud -->
+        <div class="grid grid-cols-12 gap-2 mb-3 text-[9px]">
+            <div class="col-span-1">
+                <p class="text-gray-500 uppercase">Alm:</p>
+                <input type="text" value="01" class="editable-input font-bold w-full text-center">
+            </div>
+            <div class="col-span-2">
+                <p class="text-gray-500 uppercase">Moneda:</p>
+                <input type="text" value="USD" class="editable-input font-bold text-center uppercase bg-yellow-50 w-full">
+            </div>
+            <div class="col-span-6">
+                <p class="text-gray-500 uppercase">Confeccionado por:</p>
+                <input type="text" value="Reinier Carrera Lopez" class="editable-input font-bold w-full">
+            </div>
+            <div class="col-span-3">
+                <p class="text-gray-500 uppercase">Solicitud:</p>
+                <input type="text" id="offer-request" value="004" class="editable-input font-bold w-full">
+            </div>
+        </div>
+
+        <div class="overflow-x-auto mb-4">
+            <table class="w-full border-collapse text-[10px]">
+                <thead>
+                    <tr class="bg-gray-100 border border-black">
+                        <th class="border border-black p-1.5 w-12">Alm</th>
+                        <th class="border border-black p-1.5 w-20">Código</th>
+                        <th class="border border-black p-1.5">Producto/Servicio/Comentario</th>
+                        <th class="border border-black p-1.5 w-14 text-center">Cantidad</th>
+                        <th class="border border-black p-1.5 w-20">Envase</th>
+                        <th class="border border-black p-1.5 w-20 text-right">Precio Bruto USD</th>
+                        <th class="border border-black p-1.5 w-20 text-right">Importe USD</th>
+                        <th class="w-6 no-print"></th>
+                    </tr>
+                </thead>
+                <tbody id="offer-items"></tbody>
+                <tfoot>
+                    <tr class="font-bold bg-gray-50">
+                        <td colspan="6" class="border border-black p-1.5 text-right">TOTAL</td>
+                        <td class="border border-black p-1.5 text-right" id="offer-total-display">0.00</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+            <button onclick="addOfferRow()" class="mt-2 text-blue-600 hover:text-blue-800 font-semibold text-[10px] flex items-center gap-2 transition-colors no-print"><i class="fas fa-plus-circle"></i> Agregar Item</button>
+        </div>
+        <div class="grid grid-cols-3 gap-3 mt-6 pt-3 border-t border-gray-300 text-[10px]">
+            <div class="flex flex-col justify-between"><span class="font-bold">Hoja</span><div class="border-b border-gray-400 flex-grow"></div></div>
+            <div class="flex flex-col justify-between"><span class="font-bold">Impreso por</span><div class="border-b border-gray-400 flex-grow"></div></div>
+            <div class="flex flex-col justify-between"><span class="font-bold">Recibido por (Nombre y Apellidos)</span><div class="border-b border-gray-400 flex-grow"></div><span class="font-bold mt-2">Importe Total</span><span class="border p-1 bg-yellow-50 text-center font-bold" id="offer-total-footer">0.00</span></div>
+        </div>
+        <div class="mt-3 text-center text-[10px] font-bold border-t border-black pt-2">Atención al Cliente: Teléfono: ________________ (Horario: 8:30 a 4:00 pm)</div>
+    </div>
+</div>
 
     <!-- ============================================================ -->
     <!-- MÓDULO DE ANÁLISIS DE VENTAS POR PRODUCTO -->
@@ -1749,7 +1853,6 @@
                 if (themeLabel) themeLabel.textContent = 'Tema Claro';
             }
             renderFinanceView();
-            // Re-renderizar gráfico de inventario si está visible
             if (!document.getElementById('inventory-view').classList.contains('hidden')) {
                 renderInventoryList();
             }
@@ -1805,7 +1908,6 @@
             if (savedRate) exchangeRate = parseFloat(savedRate);
             document.getElementById('exchange-rate-input').value = exchangeRate;
             
-            // Inicializar selector de mes con el mes actual
             const monthInput = document.getElementById('sales-month-input');
             if (monthInput && !monthInput.value) {
                 monthInput.value = new Date().toISOString().substring(0, 7);
@@ -1902,62 +2004,47 @@
         function showInventory() { 
             hideAllViews(); 
             document.getElementById('inventory-view').classList.remove('hidden');
-            // Asegurar que el mes seleccionado esté inicializado
             const monthInput = document.getElementById('sales-month-input');
             if (!monthInput.value) monthInput.value = new Date().toISOString().substring(0, 7);
             renderInventoryList(); 
             document.getElementById('search-inventory').value = '';
             setActiveSidebarItem('inventory'); closeSidebar();
         }
-        function showEditor(invoiceId = null) { hideAllViews(); document.getElementById('editor-view').classList.remove('hidden'); syncInvoiceExchangeRate(); if (invoiceId) { loadInvoice(invoiceId); } else { resetForm(); } setActiveSidebarItem('editor'); closeSidebar(); }
+        function showEditor(invoiceId = null) { hideAllViews(); document.getElementById('editor-view').classList.remove('hidden'); if (invoiceId) { loadInvoice(invoiceId); } else { resetForm(); } setActiveSidebarItem('editor'); closeSidebar(); }
         function showReceipt(receiptId = null) { hideAllViews(); document.getElementById('receipt-view').classList.remove('hidden'); syncReceiptExchangeRate(); if (receiptId) { loadReceipt(receiptId); } else { resetReceiptForm(); } setActiveSidebarItem('receipt'); closeSidebar(); }
-        // === TASA DE CAMBIO: Factura y Recibo sincronizadas con el inventario ===
+        
+        // === TASA DE CAMBIO ===
         function syncInvoiceExchangeRate() {
             const invInput = document.getElementById('exchange-rate-input');
             const invoiceInput = document.getElementById('invoice-exchange-rate-input');
             if (invoiceInput) {
-                invoiceInput.value = exchangeRate;
-                if (invInput) invInput.value = exchangeRate;
+                const v = parseFloat(invoiceInput.value);
+                if (!isNaN(v) && v > 0) {
+                    exchangeRate = v;
+                    localStorage.setItem(RATE_KEY, exchangeRate);
+                    if (invInput) invInput.value = exchangeRate;
+                    inventory.forEach(i => i.price = i.priceUSD * exchangeRate);
+                    saveInventory();
+                }
             }
-            calculateTotal();
         }
-        function applyInvoiceExchangeRate() {
-            const v = parseFloat(document.getElementById('invoice-exchange-rate-input').value);
-            if (isNaN(v) || v <= 0) { showToast("Tasa inválida", true); return; }
-            exchangeRate = v;
-            localStorage.setItem(RATE_KEY, exchangeRate);
-            const invInput = document.getElementById('exchange-rate-input');
-            if (invInput) invInput.value = exchangeRate;
-            const recInput = document.getElementById('receipt-exchange-rate-input');
-            if (recInput) recInput.value = exchangeRate;
-            inventory.forEach(i => i.price = i.priceUSD * exchangeRate);
-            saveInventory();
-            calculateTotal();
-            showToast("Tasa actualizada a " + exchangeRate + " CUP/USD");
-        }
+
         function syncReceiptExchangeRate() {
             const invInput = document.getElementById('exchange-rate-input');
             const recInput = document.getElementById('receipt-exchange-rate-input');
             if (recInput) {
-                recInput.value = exchangeRate;
-                if (invInput) invInput.value = exchangeRate;
+                const v = parseFloat(recInput.value);
+                if (!isNaN(v) && v > 0) {
+                    exchangeRate = v;
+                    localStorage.setItem(RATE_KEY, exchangeRate);
+                    if (invInput) invInput.value = exchangeRate;
+                    inventory.forEach(i => i.price = i.priceUSD * exchangeRate);
+                    saveInventory();
+                }
             }
             calculateReceiptTotal();
         }
-        function applyReceiptExchangeRate() {
-            const v = parseFloat(document.getElementById('receipt-exchange-rate-input').value);
-            if (isNaN(v) || v <= 0) { showToast("Tasa inválida", true); return; }
-            exchangeRate = v;
-            localStorage.setItem(RATE_KEY, exchangeRate);
-            const invInput = document.getElementById('exchange-rate-input');
-            if (invInput) invInput.value = exchangeRate;
-            const invInvoiceInput = document.getElementById('invoice-exchange-rate-input');
-            if (invInvoiceInput) invInvoiceInput.value = exchangeRate;
-            inventory.forEach(i => i.price = i.priceUSD * exchangeRate);
-            saveInventory();
-            calculateReceiptTotal();
-            showToast("Tasa actualizada a " + exchangeRate + " CUP/USD");
-        }
+
         function showOffer(offerId = null) {
             hideAllViews(); document.getElementById('offer-view').classList.remove('hidden');
             setActiveSidebarItem('offer'); closeSidebar();
@@ -1997,9 +2084,6 @@
             if(tabName === 'offers') renderOfferList(); 
         }
 
-        // ============================================================
-        // NUEVA FUNCIÓN: Calcular ventas mensuales por producto
-        // ============================================================
         function calculateMonthlySales(monthYear) {
             const salesMap = {};
             const allSales = [...invoices, ...receipts];
@@ -2022,9 +2106,6 @@
             return salesMap;
         }
 
-        // ============================================================
-        // NUEVA FUNCIÓN: Renderizar gráfico Stock vs Ventas
-        // ============================================================
         function renderInventorySalesChart(salesData) {
             const ctx = document.getElementById('inventorySalesChart');
             if (!ctx) return;
@@ -2038,7 +2119,6 @@
                 inventorySalesChartInstance.destroy();
             }
             
-            // Nombres cortos para las etiquetas
             const labels = inventory.map(p => {
                 const name = p.name;
                 return name.length > 20 ? name.substring(0, 20) + '...' : name;
@@ -2145,11 +2225,9 @@
         }
 
       function renderFinanceView() {
-        // 1. Calcular y renderizar las nuevas métricas de ventas solicitadas
         calculateSalesMetrics();
         renderSalesDailyLog();
 
-        // 2. Cálculos existentes (Gastos vs Ingresos para el periodo seleccionado)
         const period = document.getElementById('finance-period').value;
         const today = new Date();
         const cutoffDate = new Date();
@@ -2161,7 +2239,6 @@
         let income = 0;
         let expense = 0;
 
-        // Calcular ingresos del periodo (facturas + recibos)
         [...invoices, ...receipts].forEach(doc => {
             const docDate = new Date(doc.date);
             if (period === 'all' || docDate >= cutoffDate) {
@@ -2169,7 +2246,6 @@
             }
         });
 
-        // Calcular gastos del periodo
         expenses.forEach(exp => {
             const expDate = new Date(exp.date);
             if (period === 'all' || expDate >= cutoffDate) {
@@ -2179,7 +2255,6 @@
 
         const net = income - expense;
 
-        // Actualizar tarjetas de resumen financiero
         document.getElementById('fin-income').textContent = `$${income.toFixed(2)}`;
         document.getElementById('fin-expenses').textContent = `$${expense.toFixed(2)}`;
         document.getElementById('fin-expenses-detail').textContent = `${expenses.length} registros`;
@@ -2187,10 +2262,8 @@
         netEl.textContent = `$${net.toFixed(2)}`;
         netEl.className = `text-2xl font-extrabold mt-1 ${net >= 0 ? 'text-blue-700 dark:text-blue-400' : 'text-red-600 dark:text-red-500'}`;
 
-        // 3. Renderizar lista de trabajadores
         renderWorkers();
 
-        // 4. Renderizar tabla de gastos recientes
         const expenseBody = document.getElementById('recent-expenses-body');
         expenseBody.innerHTML = '';
         const recentExpenses = [...expenses].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 5);
@@ -2210,17 +2283,13 @@
             });
         }
 
-        // 5. Renderizar Gráfico de Ventas (Lógica existente)
         updateSalesChart(period);
-
-        // 6. Renderizar Productos Más Vendidos (Lógica existente)
         updateTopProducts();
     }
 
     function renderWorkers() {
     const listContainer = document.getElementById('workers-list');
     
-    // Aseguramos que la lista workers exista globalmente
     if (typeof workers === 'undefined') {
         window.workers = [];
     }
@@ -2250,13 +2319,12 @@
     });
 }
 
-// Function to remove a worker
 function deleteWorker(id) {
     if(confirm('¿Estás seguro de que deseas eliminar a este trabajador?')) {
         workers = workers.filter(w => w.id !== id);
-        saveData(); // Asegúrate de tener una función saveData() o usar localStorage directamente aquí
+        saveWorkers();
         renderWorkers();
-        renderFinanceView(); // Recalcular totales de finanzas
+        renderFinanceView();
         showToast('Trabajador eliminado correctamente');
     }
 }
@@ -2356,15 +2424,12 @@ function deleteWorker(id) {
 
         function updateSalesChart(period) {
         const ctx = document.getElementById('salesChart').getContext('2d');
-        // Destruir gráfico anterior si existe
         if (window.salesChartInstance) window.salesChartInstance.destroy();
 
-        // Preparar datos por fecha
         const salesMap = {};
         const today = new Date();
-        const daysCount = period === 'all' ? 365 : parseInt(period); // Para 'all' mostramos último año aprox o ajustar
+        const daysCount = period === 'all' ? 365 : parseInt(period);
         
-        // Inicializar mapa con fechas vacías
         for (let i = daysCount - 1; i >= 0; i--) {
             const d = new Date();
             d.setDate(today.getDate() - i);
@@ -2402,7 +2467,7 @@ function deleteWorker(id) {
                     legend: { display: false }
                 },
                 scales: {
-                    x: { display: false }, // Ocultar labels X para limpieza visual si son muchos
+                    x: { display: false },
                     y: { beginAtZero: true }
                 }
             }
@@ -2666,79 +2731,90 @@ function deleteWorker(id) {
             document.getElementById('offer-total-footer').textContent = formatted;
         }
 
+        // === FUNCIONES DE FACTURA (CON COLUMNA TOTAL POR PRODUCTO) ===
         function createProductOptions() {
             let options = `<option value="" disabled selected>Seleccionar producto...</option>`;
             inventory.forEach(oil => {
-                const totalStock = (oil.stock.depo || 0) + (oil.stock.almacen || 0) + (oil.stock.oficina || 0);
-                const stockText = totalStock === 0 ? "(SIN STOCK)" : `(Disp: ${totalStock})`;
-                const disabled = totalStock === 0 ? "disabled class='text-gray-300 dark:text-gray-600'" : "";
-                options += `<option value="${oil.id}" data-price="${oil.price}" data-code="${oil.code}" data-envase="${oil.envase}" ${disabled}>${oil.name} ${stockText}</option>`;
+                options += `<option value="${oil.id}" data-price-usd="${oil.priceUSD}" data-code="${oil.code}" data-envase="${oil.envase}">${oil.name}</option>`;
             });
             return options;
         }
+
         function addNewRow(data = null) {
             const tbody = document.getElementById('invoice-items');
             const rowId = 'row-' + Date.now() + '-' + Math.floor(Math.random()*1000);
             const tr = document.createElement('tr');
             tr.className = "border-b border-gray-100 group hover:bg-gray-50 dark:hover:bg-slate-50/10 transition-colors fade-in";
             tr.id = rowId;
-            const qty = data ? data.qty :1;
+            const qty = data ? data.qty : 1;
             const productId = data ? data.productId : "";
             const price = data ? data.price : "0.00";
-            const location = data ? data.location : "depo";
-            tr.innerHTML = `<td class="py-3 align-top"><input type="number" min="1" value="${qty}" class="table-row-input w-full font-bold text-center text-gray-800 dark:text-gray-200" oninput="calculateRowTotal('${rowId}')"></td><td class="py-3 align-top text-center"><input type="text" id="code-${rowId}" value="" class="w-full text-center font-mono text-xs text-gray-600 dark:text-gray-300 bg-transparent" readonly></td><td class="py-3 align-top"><select class="product-select w-full text-gray-700 dark:text-gray-200 focus:outline-none bg-transparent" onchange="updatePriceFromSelect(this, '${rowId}')">${createProductOptions()}</select></td><td class="py-3 align-top text-center text-xs text-gray-600 dark:text-gray-300" id="unit-${rowId}">-</td><td class="py-3 align-top no-print"><select class="location-select w-full font-bold text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-slate-600 rounded focus:outline-none bg-transparent" id="loc-${rowId}"><option value="depo" ${location === 'depo' ? 'selected' : ''}>Depo</option><option value="almacen" ${location === 'almacen' ? 'selected' : ''}>Almacén</option><option value="oficina" ${location === 'oficina' ? 'selected' : ''}>Oficina</option></select></td><td class="py-3 align-top text-right"><input type="number" step="0.01" value="${price}" class="table-row-input w-full font-mono text-gray-600 dark:text-gray-300 text-right" oninput="calculateRowTotal('${rowId}')"></td><td class="py-3 align-top text-right font-bold text-gray-800 dark:text-gray-200"><span class="row-total">0.00</span></td><td class="py-3 align-top text-right font-mono text-gray-600 dark:text-gray-400"><span class="row-total-usd">0.00</span></td><td class="py-3 align-middle text-center no-print"><button onclick="deleteRow('${rowId}')" class="text-gray-300 dark:text-gray-600 hover:text-red-500 transition-colors"><i class="fas fa-trash-alt"></i></button></td>`;
+            // Orden: Descripción, Unidad, Cantidad, Precio Unit. USD, Total (USD)
+            tr.innerHTML = `
+                <td class="py-3 align-top">
+                    <select class="product-select w-full text-gray-700 dark:text-gray-200 focus:outline-none bg-transparent" onchange="updatePriceFromSelect(this, '${rowId}')">${createProductOptions()}</select>
+                </td>
+                <td class="py-3 align-top text-center text-xs text-gray-600 dark:text-gray-300" id="unit-${rowId}">-</td>
+                <td class="py-3 align-top text-center">
+                    <input type="number" min="1" value="${qty}" class="table-row-input w-full font-bold text-center text-gray-800 dark:text-gray-200" oninput="calculateRowTotal('${rowId}')">
+                </td>
+                <td class="py-3 align-top text-right">
+                    <input type="number" step="0.01" value="${price}" class="table-row-input w-full font-mono text-gray-600 dark:text-gray-300 text-right" oninput="calculateRowTotal('${rowId}')">
+                </td>
+                <td class="py-3 align-top text-right font-bold text-gray-800 dark:text-gray-200">
+                    <span class="row-total-usd">0.00</span>
+                </td>
+                <td class="py-3 align-middle text-center no-print">
+                    <button onclick="deleteRow('${rowId}')" class="text-gray-300 dark:text-gray-600 hover:text-red-500 transition-colors"><i class="fas fa-trash-alt"></i></button>
+                </td>
+            `;
             tbody.appendChild(tr);
             if(data && data.productId) {
                 const select = tr.querySelector('.product-select');
                 select.value = data.productId;
                 updatePriceFromSelect(select, rowId);
-                tr.querySelector(`#loc-${rowId}`).value = location;
             }
         }
+
         function deleteRow(rowId) { const row = document.getElementById(rowId); if (row) { row.remove(); calculateTotal(); } }
+
         function updatePriceFromSelect(selectElement, rowId) {
             const row = document.getElementById(rowId);
             const priceInput = row.querySelector('input[type="number"][step="0.01"]');
             const selectedOption = selectElement.options[selectElement.selectedIndex];
             if (selectedOption.value) {
-                const price = parseFloat(selectedOption.getAttribute('data-price'));
-                priceInput.value = price.toFixed(2);
-                const codeInput = row.querySelector(`#code-${rowId}`);
-                if (codeInput) codeInput.value = selectedOption.getAttribute('data-code') || '';
+                const priceUSD = parseFloat(selectedOption.getAttribute('data-price-usd')) || 0;
+                priceInput.value = priceUSD.toFixed(2);
                 const unitCell = row.querySelector(`#unit-${rowId}`);
                 if (unitCell) unitCell.textContent = selectedOption.getAttribute('data-envase') || '-';
                 calculateRowTotal(rowId);
             }
         }
+
         function calculateRowTotal(rowId) {
             const row = document.getElementById(rowId);
-            const qty = parseFloat(row.querySelector('input[type="number"]').value) || 0;
-            const price = parseFloat(row.querySelector('input[type="number"][step="0.01"]').value) || 0;
-            const total = qty * price;
-            row.querySelector('.row-total').textContent = total.toFixed(2);
-            const usdCell = row.querySelector('.row-total-usd');
-            if (usdCell) {
-                const usd = exchangeRate > 0 ? (total / exchangeRate) : 0;
-                usdCell.textContent = usd.toFixed(2);
-            }
+            const qtyInput = row.querySelector('input[type="number"]:not([step])');
+            const priceInput = row.querySelector('input[type="number"][step="0.01"]');
+            const qty = qtyInput ? (parseFloat(qtyInput.value) || 0) : 0;
+            const price = priceInput ? (parseFloat(priceInput.value) || 0) : 0;
+            const totalUSD = qty * price;
+            const totalCell = row.querySelector('.row-total-usd');
+            if (totalCell) totalCell.textContent = totalUSD.toFixed(2);
             calculateTotal();
         }
+
         function calculateTotal() {
-            let subtotal = 0;
+            let totalUSD = 0;
             document.querySelectorAll('#invoice-items tr').forEach(row => {
-                const totalText = row.querySelector('.row-total').textContent.replace('$', '');
-                subtotal += parseFloat(totalText) || 0;
+                const qtyInput = row.querySelector('input[type="number"]:not([step])');
+                const priceInput = row.querySelector('input[type="number"][step="0.01"]');
+                const qty = qtyInput ? (parseFloat(qtyInput.value) || 0) : 0;
+                const price = priceInput ? (parseFloat(priceInput.value) || 0) : 0;
+                totalUSD += qty * price;
             });
-            const total = subtotal;
-            const usdSubtotal = exchangeRate > 0 ? (subtotal / exchangeRate) : 0;
-            const usdTotal = exchangeRate > 0 ? (total / exchangeRate) : 0;
-            document.getElementById('subtotal-display').textContent = usdSubtotal.toFixed(2);
-            document.getElementById('total-display').textContent = usdTotal.toFixed(2);
-            const cupDisplay = document.getElementById('invoice-total-usd-display');
-            if (cupDisplay) {
-                cupDisplay.textContent = total.toFixed(2);
-            }
+            document.getElementById('total-display').textContent = totalUSD.toFixed(2);
         }
+
         function resetForm() {
             currentInvoiceId = null;
             document.getElementById('invoice-number').value = Math.floor(100000 + Math.random() * 900000);
@@ -2748,27 +2824,33 @@ function deleteWorker(id) {
             document.getElementById('client-address').value = "";
             document.getElementById('client-phone').value = "";
             document.getElementById('invoice-items').innerHTML = "";
-            syncInvoiceExchangeRate();
+            // Limpiar campos de firmas
+            document.getElementById('elaborado-nombre').value = "";
+            document.getElementById('elaborado-ci').value = "";
+            document.getElementById('elaborado-firma').value = "";
+            document.getElementById('recibido-nombre').value = "";
+            document.getElementById('recibido-ci').value = "";
+            document.getElementById('transportado-nombre').value = "";
+            document.getElementById('transportado-ci').value = "";
+            document.getElementById('transportado-chapa').value = "";
             addNewRow(); addNewRow(); addNewRow();
             calculateTotal();
         }
+
         function saveInvoice() {
-            const items = []; let totalProducts = 0; let stockError = false;
+            const items = []; let totalProducts = 0;
             const tempItems = [];
             document.querySelectorAll('#invoice-items tr').forEach(row => {
-                const qty = parseFloat(row.querySelector('input[type="number"]').value) || 0;
+                const qtyInput = row.querySelector('input[type="number"]:not([step])');
+                const priceInput = row.querySelector('input[type="number"][step="0.01"]');
                 const select = row.querySelector('.product-select');
-                const locationSelect = row.querySelector(`.location-select`);
-                const location = locationSelect ? locationSelect.value : 'depo';
-                const price = parseFloat(row.querySelector('input[type="number"][step="0.01"]').value) || 0;
-                if (select.value) {
-                    const product = inventory.find(p => p.id == select.value);
-                    const availableStock = product.stock[location] || 0;
-                    if (availableStock < qty) { showToast(`Stock insuficiente en ${location.toUpperCase()} para ${product.name} (Disp: ${availableStock})`, true); stockError = true; return; }
-                    tempItems.push({ productId: select.value, description: select.options[select.selectedIndex].text, qty: qty, price: price, location: location }); totalProducts += qty;
+                const qty = qtyInput ? (parseFloat(qtyInput.value) || 0) : 0;
+                const price = priceInput ? (parseFloat(priceInput.value) || 0) : 0;
+                if (select && select.value) {
+                    tempItems.push({ productId: select.value, description: select.options[select.selectedIndex].text, qty: qty, price: price, location: 'depo' });
+                    totalProducts += qty;
                 }
             });
-            if (stockError) return;
             if (tempItems.length === 0) { showToast("Agrega al menos un producto.", true); return; }
             if (currentInvoiceId) {
                 const oldInvoice = invoices.find(i => i.id === currentInvoiceId);
@@ -2793,11 +2875,22 @@ function deleteWorker(id) {
                 paymentMethod: document.getElementById('payment-method').value,
                 notes: document.getElementById('invoice-notes').value,
                 items: tempItems,
-                subtotal: document.getElementById('subtotal-display').textContent,
+                subtotal: document.getElementById('total-display').textContent,
                 total: document.getElementById('total-display').textContent,
-                totalUsd: document.getElementById('invoice-total-usd-display') ? document.getElementById('invoice-total-usd-display').textContent : '0.00',
+                totalUsd: document.getElementById('total-display').textContent,
                 exchangeRate: exchangeRate,
-                totalQty: totalProducts
+                totalQty: totalProducts,
+                // Guardar campos de firmas
+                signatures: {
+                    elaboradoNombre: document.getElementById('elaborado-nombre').value,
+                    elaboradoCI: document.getElementById('elaborado-ci').value,
+                    elaboradoFirma: document.getElementById('elaborado-firma').value,
+                    recibidoNombre: document.getElementById('recibido-nombre').value,
+                    recibidoCI: document.getElementById('recibido-ci').value,
+                    transportadoNombre: document.getElementById('transportado-nombre').value,
+                    transportadoCI: document.getElementById('transportado-ci').value,
+                    transportadoChapa: document.getElementById('transportado-chapa').value
+                }
             };
             if (currentInvoiceId) { const index = invoices.findIndex(inv => inv.id === currentInvoiceId); if (index !== -1) invoices[index] = invoiceData; } else { invoices.push(invoiceData); }
             localStorage.setItem(INVOICES_KEY, JSON.stringify(invoices));
@@ -2809,6 +2902,7 @@ function deleteWorker(id) {
                 sel.value = oldVal;
             });
         }
+
         function loadInvoice(id) {
             const invoice = invoices.find(inv => inv.id === id);
             if (!invoice) return;
@@ -2821,12 +2915,32 @@ function deleteWorker(id) {
             document.getElementById('client-phone').value = invoice.phone;
             document.getElementById('payment-method').value = invoice.paymentMethod;
             document.getElementById('invoice-notes').value = invoice.notes;
-            syncInvoiceExchangeRate();
+            // Cargar firmas
+            if (invoice.signatures) {
+                document.getElementById('elaborado-nombre').value = invoice.signatures.elaboradoNombre || "";
+                document.getElementById('elaborado-ci').value = invoice.signatures.elaboradoCI || "";
+                document.getElementById('elaborado-firma').value = invoice.signatures.elaboradoFirma || "";
+                document.getElementById('recibido-nombre').value = invoice.signatures.recibidoNombre || "";
+                document.getElementById('recibido-ci').value = invoice.signatures.recibidoCI || "";
+                document.getElementById('transportado-nombre').value = invoice.signatures.transportadoNombre || "";
+                document.getElementById('transportado-ci').value = invoice.signatures.transportadoCI || "";
+                document.getElementById('transportado-chapa').value = invoice.signatures.transportadoChapa || "";
+            } else {
+                document.getElementById('elaborado-nombre').value = "";
+                document.getElementById('elaborado-ci').value = "";
+                document.getElementById('elaborado-firma').value = "";
+                document.getElementById('recibido-nombre').value = "";
+                document.getElementById('recibido-ci').value = "";
+                document.getElementById('transportado-nombre').value = "";
+                document.getElementById('transportado-ci').value = "";
+                document.getElementById('transportado-chapa').value = "";
+            }
             const tbody = document.getElementById('invoice-items');
             tbody.innerHTML = "";
-            invoice.items.forEach(item => { addNewRow({ qty: item.qty, productId: item.productId, price: item.price, location: item.location || 'depo' }); });
+            invoice.items.forEach(item => { addNewRow({ qty: item.qty, productId: item.productId, price: item.price }); });
             calculateTotal();
         }
+
         function deleteInvoice(id) {
             if(confirm("¿Eliminar factura y restaurar stock?")) {
                 const invoice = invoices.find(i => i.id === id);
@@ -2846,9 +2960,11 @@ function deleteWorker(id) {
             }
         }
         
+        // === FUNCIONES DE RECIBO ===
         function createReceiptProductOptions() {
             return createProductOptions(); 
         }
+
         function addReceiptRow(data = null) {
             const tbody = document.getElementById('receipt-items');
             const rowId = 'rec-row-' + Date.now() + '-' + Math.floor(Math.random()*1000);
@@ -2873,8 +2989,9 @@ function deleteWorker(id) {
             const priceInput = row.querySelector('input[type="number"][step="0.01"]');
             const selectedOption = selectElement.options[selectElement.selectedIndex];
             if (selectedOption.value) {
-                const price = parseFloat(selectedOption.getAttribute('data-price'));
-                priceInput.value = price.toFixed(2);
+                const priceUSD = parseFloat(selectedOption.getAttribute('data-price-usd')) || 0;
+                const priceCUP = priceUSD * exchangeRate;
+                priceInput.value = priceCUP.toFixed(2);
                 const codeInput = row.querySelector(`#code-${rowId}`);
                 if (codeInput) codeInput.value = selectedOption.getAttribute('data-code') || '';
                 const unitCell = row.querySelector(`#unit-${rowId}`);
@@ -2919,6 +3036,15 @@ function deleteWorker(id) {
             document.getElementById('receipt-client-phone').value = "";
             document.getElementById('receipt-notes').value = "Los precios expresados son en Moneda Nacional (CUP). El pago debe realizarse contra entrega. Gracias por su compra.";
             document.getElementById('receipt-items').innerHTML = "";
+            // Limpiar firmas
+            document.getElementById('receipt-elaborado-nombre').value = "";
+            document.getElementById('receipt-elaborado-ci').value = "";
+            document.getElementById('receipt-elaborado-firma').value = "";
+            document.getElementById('receipt-recibido-nombre').value = "";
+            document.getElementById('receipt-recibido-ci').value = "";
+            document.getElementById('receipt-transportado-nombre').value = "";
+            document.getElementById('receipt-transportado-ci').value = "";
+            document.getElementById('receipt-transportado-chapa').value = "";
             syncReceiptExchangeRate();
             addReceiptRow(); addReceiptRow(); addReceiptRow(); 
             calculateReceiptTotal();
@@ -2968,7 +3094,17 @@ function deleteWorker(id) {
                 total: document.getElementById('receipt-total-display').textContent,
                 totalUsd: document.getElementById('receipt-total-usd-display') ? document.getElementById('receipt-total-usd-display').textContent : '0.00',
                 exchangeRate: exchangeRate,
-                totalQty: totalProducts
+                totalQty: totalProducts,
+                signatures: {
+                    elaboradoNombre: document.getElementById('receipt-elaborado-nombre').value,
+                    elaboradoCI: document.getElementById('receipt-elaborado-ci').value,
+                    elaboradoFirma: document.getElementById('receipt-elaborado-firma').value,
+                    recibidoNombre: document.getElementById('receipt-recibido-nombre').value,
+                    recibidoCI: document.getElementById('receipt-recibido-ci').value,
+                    transportadoNombre: document.getElementById('receipt-transportado-nombre').value,
+                    transportadoCI: document.getElementById('receipt-transportado-ci').value,
+                    transportadoChapa: document.getElementById('receipt-transportado-chapa').value
+                }
             };
             if (currentReceiptId) { const index = receipts.findIndex(r => r.id === currentReceiptId); if (index !== -1) receipts[index] = receiptData; } else { receipts.push(receiptData); }
             localStorage.setItem(RECEIPTS_KEY, JSON.stringify(receipts));
@@ -2992,6 +3128,26 @@ function deleteWorker(id) {
             document.getElementById('receipt-client-phone').value = receipt.phone;
             document.getElementById('receipt-payment-method').value = receipt.paymentMethod;
             document.getElementById('receipt-notes').value = receipt.notes;
+            // Cargar firmas
+            if (receipt.signatures) {
+                document.getElementById('receipt-elaborado-nombre').value = receipt.signatures.elaboradoNombre || "";
+                document.getElementById('receipt-elaborado-ci').value = receipt.signatures.elaboradoCI || "";
+                document.getElementById('receipt-elaborado-firma').value = receipt.signatures.elaboradoFirma || "";
+                document.getElementById('receipt-recibido-nombre').value = receipt.signatures.recibidoNombre || "";
+                document.getElementById('receipt-recibido-ci').value = receipt.signatures.recibidoCI || "";
+                document.getElementById('receipt-transportado-nombre').value = receipt.signatures.transportadoNombre || "";
+                document.getElementById('receipt-transportado-ci').value = receipt.signatures.transportadoCI || "";
+                document.getElementById('receipt-transportado-chapa').value = receipt.signatures.transportadoChapa || "";
+            } else {
+                document.getElementById('receipt-elaborado-nombre').value = "";
+                document.getElementById('receipt-elaborado-ci').value = "";
+                document.getElementById('receipt-elaborado-firma').value = "";
+                document.getElementById('receipt-recibido-nombre').value = "";
+                document.getElementById('receipt-recibido-ci').value = "";
+                document.getElementById('receipt-transportado-nombre').value = "";
+                document.getElementById('receipt-transportado-ci').value = "";
+                document.getElementById('receipt-transportado-chapa').value = "";
+            }
             syncReceiptExchangeRate();
             const tbody = document.getElementById('receipt-items');
             tbody.innerHTML = "";
@@ -3017,9 +3173,6 @@ function deleteWorker(id) {
             }
         }
 
-        // ============================================================
-        // INVENTARIO MODIFICADO CON VENTAS MENSALES
-        // ============================================================
         function renderInventoryList() {
             const tbody = document.getElementById('inventory-list-body');
             const emptyMsg = document.getElementById('empty-inventory-msg');
@@ -3028,7 +3181,6 @@ function deleteWorker(id) {
             const filteredInventory = inventory.filter(item => item.name.toLowerCase().includes(term) || item.code.toLowerCase().includes(term));
             if(filteredInventory.length === 0) { emptyMsg.classList.remove('hidden'); } else { emptyMsg.classList.add('hidden'); }
             
-            // Obtener ventas del mes seleccionado
             const monthInput = document.getElementById('sales-month-input').value;
             const salesData = calculateMonthlySales(monthInput);
             
@@ -3049,7 +3201,6 @@ function deleteWorker(id) {
                 let badgeClass = "bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300"; let statusText = "OK";
                 if(totalItemStock === 0) { badgeClass = "bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300"; statusText = "Agotado"; } else if(totalItemStock < 10) { badgeClass = "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300"; statusText = "Bajo"; }
                 
-                // Cálculo de relación Stock/Ventas
                 let ratioHtml = "";
                 if (itemSales > 0 && totalItemStock > 0) {
                     const ratio = ((itemSales / totalItemStock) * 100).toFixed(0);
@@ -3088,42 +3239,28 @@ function deleteWorker(id) {
                 tbody.appendChild(tr);
             });
             
-            // Actualizar tarjetas de resumen
             document.getElementById('inv-sum-stock').textContent = totalStock.toLocaleString();
             document.getElementById('inv-sum-sales').textContent = totalSales.toLocaleString();
             document.getElementById('inv-sum-revenue').textContent = '$' + totalRevenue.toLocaleString('en-US', {minimumFractionDigits: 2});
             const rotation = totalStock > 0 ? ((totalSales / totalStock) * 100).toFixed(1) : 0;
             document.getElementById('inv-sum-rotation').textContent = rotation + '%';
             
-            // Renderizar gráfico
             renderInventorySalesChart(salesData);
         }
 
 function renderSalesDailyLog() {
-    console.log("--- Iniciando cálculo de ventas ---");
-
-    // 1. Usar directamente las variables globales (let no se asigna a window)
-    // Se referencia 'invoices' y 'receipts' del scope superior directamente
-    console.log("Facturas encontradas:", invoices.length);
-    console.log("Recibos encontrados:", receipts.length);
-
-    // 2. COMBINAR TODO EN UNA SOLA LISTA (facturas + recibos)
     const allTransactions = [
         ...invoices.map(i => ({ ...i, type: 'Factura' })),
         ...receipts.map(r => ({ ...r, type: 'Recibo' }))
     ];
 
     if (allTransactions.length === 0) {
-        console.warn("No se encontraron transacciones en ninguna variable conocida.");
-        // Limpiar vista si no hay datos
         document.getElementById('daily-sales-log-body').innerHTML = '<tr><td colspan="4" class="text-center p-4 text-gray-400">Sin datos</td></tr>';
         return;
     }
 
-    // 3. ORDENAR POR FECHA
     allTransactions.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    // 4. CALCULAR TOTALES (Histórico, Mes, Hoy)
     let totalHistory = 0;
     let totalMonth = 0;
     let totalToday = 0;
@@ -3132,40 +3269,32 @@ function renderSalesDailyLog() {
     const now = new Date();
     const currentMonth = now.getMonth();
     const currentYear = now.getFullYear();
-    const todayStr = now.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+    const todayStr = now.toISOString().split('T')[0];
 
     allTransactions.forEach(sale => {
-        // Asegurar que el monto sea número
         const amount = parseFloat(sale.total) || 0;
         const saleDate = new Date(sale.date);
 
         totalHistory += amount;
 
-        // Comparar Mes
         if (saleDate.getMonth() === currentMonth && saleDate.getFullYear() === currentYear) {
             totalMonth += amount;
         }
 
-        // Comparar Día (comparación segura de strings YYYY-MM-DD)
-        // Nota: Asegúrate que tu objeto receipt/invoice tenga el campo 'date' en formato YYYY-MM-DD
         if (sale.date && sale.date.startsWith(todayStr)) { 
             totalToday += amount;
             countToday++;
         }
     });
 
-    // 5. ACTUALIZAR LAS TARJETAS EN PANTALLA
-    // Usamos toFixed(2) para formato moneda
     document.getElementById('sales-total-history').innerText = '$' + totalHistory.toFixed(2);
     document.getElementById('sales-month-current').innerText = '$' + totalMonth.toFixed(2);
     document.getElementById('sales-today').innerText = '$' + totalToday.toFixed(2);
     document.getElementById('sales-today-count').innerText = `${countToday} documentos hoy`;
 
-    // 6. GENERAR TABLA DE LOG DIARIO
     const tbody = document.getElementById('daily-sales-log-body');
     tbody.innerHTML = '';
 
-    // Agrupar por fecha
     const salesByDate = {};
     allTransactions.forEach(sale => {
         const d = sale.date || 'Sin Fecha';
@@ -3176,7 +3305,6 @@ function renderSalesDailyLog() {
         salesByDate[d].total += parseFloat(sale.total);
     });
 
-    // Ordenar fechas para la tabla
     const dates = Object.keys(salesByDate).sort((a, b) => new Date(b) - new Date(a));
 
     dates.forEach(date => {
@@ -3204,10 +3332,9 @@ function renderSalesDailyLog() {
     });
 }
 
-   
     function calculateSalesMetrics() {
         const today = new Date().toISOString().split('T')[0];
-        const currentMonth = today.substring(0, 7); // YYYY-MM
+        const currentMonth = today.substring(0, 7);
         
         let totalHistory = 0;
         let totalHistoryCount = 0;
@@ -3218,30 +3345,25 @@ function renderSalesDailyLog() {
         let totalToday = 0;
         let totalTodayCount = 0;
 
-        // Sumar facturas Y recibos
         const allSalesDocs = [...invoices, ...receipts];
         allSalesDocs.forEach(doc => {
             const amount = parseFloat(doc.total || 0);
             if (!doc.date) return;
 
-            // Total Histórico
             totalHistory += amount;
             totalHistoryCount++;
 
-            // Ventas Mes Actual
             if (doc.date.startsWith(currentMonth)) {
                 totalMonth += amount;
                 totalMonthCount++;
             }
 
-            // Ventas Hoy
             if (doc.date === today) {
                 totalToday += amount;
                 totalTodayCount++;
             }
         });
 
-        // Actualizar DOM
         document.getElementById('sales-total-history').textContent = `$${totalHistory.toFixed(2)}`;
         document.getElementById('sales-total-count').textContent = `${totalHistoryCount} transacciones`;
 
@@ -3252,94 +3374,14 @@ function renderSalesDailyLog() {
         document.getElementById('sales-today-count').textContent = `${totalTodayCount} documentos hoy`;
     }
 
-    // --- ACTUALIZACIÓN DE LA FUNCIÓN renderFinanceView ---
-
-    function renderFinanceView() {
-        // 1. Calcular y renderizar las nuevas métricas de ventas solicitadas
-        calculateSalesMetrics();
-        renderSalesDailyLog();
-
-        // 2. Cálculos existentes (Gastos vs Ingresos para el periodo seleccionado)
-        const period = document.getElementById('finance-period').value;
-        const today = new Date();
-        const cutoffDate = new Date();
-        
-        if (period !== 'all') {
-            cutoffDate.setDate(today.getDate() - parseInt(period));
-        }
-
-        let income = 0;
-        let expense = 0;
-
-        // Calcular ingresos del periodo (facturas + recibos)
-        [...invoices, ...receipts].forEach(doc => {
-            const docDate = new Date(doc.date);
-            if (period === 'all' || docDate >= cutoffDate) {
-                income += parseFloat(doc.total || 0);
-            }
-        });
-
-        // Calcular gastos del periodo
-        expenses.forEach(exp => {
-            const expDate = new Date(exp.date);
-            if (period === 'all' || expDate >= cutoffDate) {
-                expense += parseFloat(exp.amount || 0);
-            }
-        });
-
-        const net = income - expense;
-
-        // Actualizar tarjetas de resumen financiero
-        document.getElementById('fin-income').textContent = `$${income.toFixed(2)}`;
-        document.getElementById('fin-expenses').textContent = `$${expense.toFixed(2)}`;
-        document.getElementById('fin-expenses-detail').textContent = `${expenses.length} registros`;
-        const netEl = document.getElementById('fin-net');
-        netEl.textContent = `$${net.toFixed(2)}`;
-        netEl.className = `text-2xl font-extrabold mt-1 ${net >= 0 ? 'text-blue-700 dark:text-blue-400' : 'text-red-600 dark:text-red-500'}`;
-
-        // 3. Renderizar lista de trabajadores
-        renderWorkers();
-
-        // 4. Renderizar tabla de gastos recientes
-        const expenseBody = document.getElementById('recent-expenses-body');
-        expenseBody.innerHTML = '';
-        const recentExpenses = [...expenses].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 5);
-        
-        if (recentExpenses.length === 0) {
-            document.getElementById('no-expenses-msg').classList.remove('hidden');
-        } else {
-            document.getElementById('no-expenses-msg').classList.add('hidden');
-            recentExpenses.forEach(exp => {
-                expenseBody.insertAdjacentHTML('beforeend', `
-                    <tr>
-                        <td class="py-2 pl-2 text-gray-600 dark:text-gray-400">${exp.date}</td>
-                        <td class="py-2 text-gray-800 dark:text-gray-200">${exp.desc}</td>
-                        <td class="py-2 pr-2 text-right font-bold text-red-500">-$${parseFloat(exp.amount).toFixed(2)}</td>
-                    </tr>
-                `);
-            });
-        }
-
-        // 5. Renderizar Gráfico de Ventas (Lógica existente)
-        updateSalesChart(period);
-
-        // 6. Renderizar Productos Más Vendidos (Lógica existente)
-        updateTopProducts();
-    }
-
-    // --- Asegúrate de tener estas funciones de soporte (si ya existen, omítelas, si no, agrégalas) ---
-    
     function updateSalesChart(period) {
         const ctx = document.getElementById('salesChart').getContext('2d');
-        // Destruir gráfico anterior si existe
         if (window.salesChartInstance) window.salesChartInstance.destroy();
 
-        // Preparar datos por fecha
         const salesMap = {};
         const today = new Date();
-        const daysCount = period === 'all' ? 365 : parseInt(period); // Para 'all' mostramos último año aprox o ajustar
+        const daysCount = period === 'all' ? 365 : parseInt(period);
         
-        // Inicializar mapa con fechas vacías
         for (let i = daysCount - 1; i >= 0; i--) {
             const d = new Date();
             d.setDate(today.getDate() - i);
@@ -3377,7 +3419,7 @@ function renderSalesDailyLog() {
                     legend: { display: false }
                 },
                 scales: {
-                    x: { display: false }, // Ocultar labels X para limpieza visual si son muchos
+                    x: { display: false },
                     y: { beginAtZero: true }
                 }
             }
@@ -3387,7 +3429,6 @@ function renderSalesDailyLog() {
     function updateTopProducts() {
         const productSales = {};
         
-        // Incluir facturas Y recibos
         [...invoices, ...receipts].forEach(doc => {
             if(doc.items) {
                 doc.items.forEach(item => {
@@ -3401,7 +3442,6 @@ function renderSalesDailyLog() {
             }
         });
 
-        // Convertir a array y ordenar
         const sortedProducts = Object.entries(productSales)
             .map(([name, data]) => ({ name, ...data }))
             .sort((a, b) => b.qty - a.qty)
@@ -3453,6 +3493,41 @@ function renderSalesDailyLog() {
         }
         function resetInventory() { if(confirm("¿Reiniciar inventario a valores de fábrica? Se perderán los cambios.")) { inventory = JSON.parse(JSON.stringify(defaultInventory)); inventory.forEach(i => i.price = i.priceUSD * exchangeRate); saveInventory(); renderInventoryList(); } }
 
+        function printInventory() {
+            const printHeader = document.getElementById('print-inventory-header');
+            const printFooter = document.getElementById('print-inventory-footer');
+            printHeader.classList.remove('hidden');
+            printFooter.classList.remove('hidden');
+
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' });
+            const monthInput = document.getElementById('sales-month-input');
+            const monthText = monthInput.value 
+                ? new Date(monthInput.value + '-01').toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })
+                : 'Mes actual';
+            document.getElementById('print-inv-date-info').innerHTML = 
+                '<div><strong>Fecha:</strong> ' + dateStr + '</div>' +
+                '<div><strong>Ventas de:</strong> ' + monthText + '</div>' +
+                '<div><strong>Tasa CUP/USD:</strong> ' + document.getElementById('exchange-rate-input').value + '</div>';
+
+            const tempStyle = document.createElement('style');
+            tempStyle.id = 'temp-inventory-print-style';
+            tempStyle.textContent = '@media print { @page { size: A4 landscape; margin: 10mm; } }';
+            document.head.appendChild(tempStyle);
+
+            document.body.classList.add('printing-inventory');
+
+            window.print();
+
+            setTimeout(function() {
+                document.body.classList.remove('printing-inventory');
+                printHeader.classList.add('hidden');
+                printFooter.classList.add('hidden');
+                const tempEl = document.getElementById('temp-inventory-print-style');
+                if (tempEl) tempEl.remove();
+            }, 500);
+        }
+
         function updateStats() {
             const today = new Date().toISOString().split('T')[0];
             let countToday = 0, productsToday = 0, revenueToday = 0;
@@ -3476,7 +3551,7 @@ function renderSalesDailyLog() {
             sortedInvoices.forEach(inv => {
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors";
-                tr.innerHTML = `<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-200">${inv.number}</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">${inv.date}</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-200 font-semibold">${inv.client}</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 font-mono">${inv.total}</td><td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"><button onclick="showEditor('${inv.id}')" class="text-indigo-600 hover:text-indigo-900 mr-3" title="Editar"><i class="fas fa-edit"></i></button><button onclick="deleteInvoice('${inv.id}')" class="text-red-600 hover:text-red-900" title="Eliminar"><i class="fas fa-trash"></i></button></td>`;
+                tr.innerHTML = `<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-200">${inv.number}</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">${inv.date}</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-200 font-semibold">${inv.client}</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 font-mono">$${inv.total}</td><td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"><button onclick="showEditor('${inv.id}')" class="text-indigo-600 hover:text-indigo-900 mr-3" title="Editar"><i class="fas fa-edit"></i></button><button onclick="deleteInvoice('${inv.id}')" class="text-red-600 hover:text-red-900" title="Eliminar"><i class="fas fa-trash"></i></button></td>`;
                 tbody.appendChild(tr);
             });
         }
@@ -3566,60 +3641,12 @@ function renderSalesDailyLog() {
             reader.readAsText(file);
         }
 
-        function calculateSalesMetrics() {
-        const today = new Date().toISOString().split('T')[0];
-        const currentMonth = today.substring(0, 7); // YYYY-MM
-        
-        let totalHistory = 0;
-        let totalHistoryCount = 0;
-        
-        let totalMonth = 0;
-        let totalMonthCount = 0;
-        
-        let totalToday = 0;
-        let totalTodayCount = 0;
-
-        // Sumar facturas Y recibos
-        const allSalesDocs = [...invoices, ...receipts];
-        allSalesDocs.forEach(doc => {
-            const amount = parseFloat(doc.total || 0);
-            if (!doc.date) return;
-
-            // Total Histórico
-            totalHistory += amount;
-            totalHistoryCount++;
-
-            // Ventas Mes Actual
-            if (doc.date.startsWith(currentMonth)) {
-                totalMonth += amount;
-                totalMonthCount++;
-            }
-
-            // Ventas Hoy
-            if (doc.date === today) {
-                totalToday += amount;
-                totalTodayCount++;
-            }
-        });
-
-        // Actualizar DOM
-        document.getElementById('sales-total-history').textContent = `$${totalHistory.toFixed(2)}`;
-        document.getElementById('sales-total-count').textContent = `${totalHistoryCount} transacciones`;
-
-        document.getElementById('sales-month-current').textContent = `$${totalMonth.toFixed(2)}`;
-        document.getElementById('sales-month-compare').textContent = `${totalMonthCount} documentos este mes`;
-
-        document.getElementById('sales-today').textContent = `$${totalToday.toFixed(2)}`;
-        document.getElementById('sales-today-count').textContent = `${totalTodayCount} documentos hoy`;
-    }
-
-
         // ============================================================
         // MÓDULO DE ANÁLISIS DE VENTAS POR PRODUCTO
         // ============================================================
         let productRankingChartInstance = null;
         let salesFrequencyChartInstance = null;
-        let currentProductSort = 'qty'; // default sort
+        let currentProductSort = 'qty';
 
         function showSalesAnalytics() {
             hideAllViews();
@@ -3636,7 +3663,6 @@ function renderSalesDailyLog() {
                 cutoffDate.setDate(today.getDate() - parseInt(period));
             }
 
-            // Collect all sold items from invoices and receipts
             const productMap = {};
             let totalUnits = 0;
             let totalRevenue = 0;
@@ -3661,9 +3687,9 @@ function renderSalesDailyLog() {
                             name: name,
                             qty: 0,
                             revenue: 0,
-                            frequency: 0, // number of documents this product appears in
-                            dates: [], // dates when sold
-                            salesLog: [] // detailed log
+                            frequency: 0,
+                            dates: [],
+                            salesLog: []
                         };
                     }
 
@@ -3687,7 +3713,6 @@ function renderSalesDailyLog() {
                 });
             });
 
-            // Calculate frequency label (avg days between sales)
             Object.values(productMap).forEach(p => {
                 const uniqueDates = [...new Set(p.dates)].sort();
                 p.uniqueSaleDays = uniqueDates.length;
@@ -3699,7 +3724,6 @@ function renderSalesDailyLog() {
                 } else {
                     p.avgDaysBetweenSales = null;
                 }
-                // Frequency label
                 if (p.avgDaysBetweenSales === null) {
                     p.frequencyLabel = 'Venta única';
                 } else if (p.avgDaysBetweenSales <= 1) {
@@ -3715,7 +3739,6 @@ function renderSalesDailyLog() {
                 } else {
                     p.frequencyLabel = 'Ocasional';
                 }
-                // Category: hot / warm / cold
                 if (p.qty >= 20 || p.frequency >= 5) {
                     p.category = 'Alta rotación';
                     p.categoryColor = 'green';
@@ -3737,7 +3760,6 @@ function renderSalesDailyLog() {
             };
         }
 
-        // --- Meses en español ---
         const MESES_ES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
         const MESES_CORTOS = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
         let monthlySalesChartInstance = null;
@@ -3749,7 +3771,7 @@ function renderSalesDailyLog() {
 
             allDocs.forEach(doc => {
                 if (!doc.date || !doc.items || !Array.isArray(doc.items)) return;
-                const monthKey = doc.date.substring(0, 7); // YYYY-MM
+                const monthKey = doc.date.substring(0, 7);
                 if (!monthlyMap[monthKey]) {
                     monthlyMap[monthKey] = {
                         monthKey: monthKey,
@@ -3783,7 +3805,6 @@ function renderSalesDailyLog() {
                 });
             });
 
-            // Sort by monthKey and add topProduct + avgTicket
             const months = Object.values(monthlyMap).sort((a, b) => a.monthKey.localeCompare(b.monthKey));
             months.forEach(m => {
                 const topEntry = Object.entries(m.productMap).sort((a, b) => b[1].qty - a[1].qty)[0];
@@ -3793,7 +3814,6 @@ function renderSalesDailyLog() {
                 m.uniqueClients = m.clients.size;
             });
 
-            // Calculate vs previous month
             for (let i = 0; i < months.length; i++) {
                 if (i === 0) {
                     months[i].vsPrevious = null;
@@ -3823,14 +3843,12 @@ function renderSalesDailyLog() {
                 return;
             }
 
-            // Show most recent first
             const reversed = [...months].reverse();
             reversed.forEach((m, idx) => {
                 const row = document.createElement('tr');
                 row.className = 'hover:bg-indigo-50 dark:hover:bg-indigo-900/10 cursor-pointer transition-colors';
                 row.onclick = () => showMonthlyDetail(m.monthKey);
 
-                // vs previous month badge
                 let vsHtml = '<span class="text-gray-400">-</span>';
                 if (m.vsPreviousPct !== null) {
                     const isUp = m.vsPreviousPct >= 0;
@@ -3936,7 +3954,6 @@ function renderSalesDailyLog() {
 
             document.getElementById('monthly-detail-title').innerHTML = `<i class="fas fa-calendar-alt text-indigo-500 mr-2"></i> ${m.label}`;
 
-            // Sort products by qty
             const sortedProducts = Object.entries(m.productMap)
                 .map(([name, data]) => ({ name, ...data }))
                 .sort((a, b) => b.qty - a.qty);
@@ -4015,19 +4032,16 @@ function renderSalesDailyLog() {
 
             const lines = [];
 
-            // 1. Resumen general
             const topProduct = [...data.products].sort((a, b) => b.qty - a.qty)[0];
             const topRevenue = [...data.products].sort((a, b) => b.revenue - a.revenue)[0];
             const lowProducts = data.products.filter(p => p.category === 'Baja rotación');
 
             lines.push(`<p><strong>Ventas totales:</strong> Se vendieron <strong>${data.totalUnits.toLocaleString()} unidades</strong> en <strong>${data.totalDocs} documentos</strong> (facturas y recibos), generando un ingreso de <strong>$${data.totalRevenue.toFixed(2)}</strong> con un ticket promedio de <strong>$${(data.totalDocs > 0 ? data.totalRevenue / data.totalDocs : 0).toFixed(2)}</strong> por documento.</p>`);
 
-            // 2. Top product
             if (topProduct) {
                 lines.push(`<p><strong>Producto estrella:</strong> ${topProduct.name} lidera en volumen con <strong>${topProduct.qty} unidades</strong> vendidas${topProduct.frequency > 1 ? ` en ${topProduct.frequency} ocasiones` : ''}. ${topRevenue && topRevenue.name !== topProduct.name ? `En ingresos, <strong>${topRevenue.name}</strong> encabeza con <strong>$${topRevenue.revenue.toFixed(2)}</strong>.` : `También lidera en ingresos con <strong>$${topRevenue.revenue.toFixed(2)}</strong>.`}</p>`);
             }
 
-            // 3. Monthly trend
             if (months.length >= 2) {
                 const lastMonth = months[months.length - 1];
                 const prevMonth = months[months.length - 2];
@@ -4037,19 +4051,16 @@ function renderSalesDailyLog() {
                 lines.push(`<p><strong>Tendencia:</strong> Comparando <strong>${lastMonth.label}</strong> vs <strong>${prevMonth.label}</strong>, las ventas están <strong>${trend}</strong> (${trend === 'al alza' ? '+' : '-'}$${diff}, ${pctChange}%). ${lastMonth.label}: ${lastMonth.units} unidades en ${lastMonth.docs} documentos.</p>`);
             }
 
-            // 4. Best month
             if (months.length >= 1) {
                 const bestMonth = [...months].sort((a, b) => b.revenue - a.revenue)[0];
                 lines.push(`<p><strong>Mejor mes:</strong> <strong>${bestMonth.label}</strong> fue el mes de mayor facturación con <strong>$${bestMonth.revenue.toFixed(2)}</strong> (${bestMonth.units} unidades, ${bestMonth.docs} documentos, ${bestMonth.uniqueClients} clientes).</p>`);
             }
 
-            // 5. Slow products warning
             if (lowProducts.length > 0) {
                 const lowNames = lowProducts.slice(0, 3).map(p => p.name).join(', ');
                 lines.push(`<p><strong>Atención:</strong> ${lowProducts.length} producto${lowProducts.length > 1 ? 's' : ''} con baja rotación: ${lowNames}${lowProducts.length > 3 ? ' y más' : ''}. Considere promociones o ajustar el stock.</p>`);
             }
 
-            // 6. Frequency insight
             const highFreq = data.products.filter(p => p.category === 'Alta rotación');
             if (highFreq.length > 0) {
                 lines.push(`<p><strong>Alta rotación:</strong> ${highFreq.length} producto${highFreq.length > 1 ? 's' : ''} de venta frecuente (${highFreq.map(p => p.name.length > 20 ? p.name.substring(0, 20) + '...' : p.name).join(', ')}). Asegure reposición oportuna de estos artículos.</p>`);
@@ -4063,29 +4074,23 @@ function renderSalesDailyLog() {
             const isDark = htmlElement.classList.contains('dark');
             const textColor = isDark ? '#cbd5e1' : '#374151';
 
-            // Update summary cards
             document.getElementById('sa-total-units').textContent = data.totalUnits.toLocaleString();
             document.getElementById('sa-total-revenue').textContent = '$' + data.totalRevenue.toFixed(2);
             document.getElementById('sa-diff-products').textContent = data.diffProducts;
             const avgTicket = data.totalDocs > 0 ? data.totalRevenue / data.totalDocs : 0;
             document.getElementById('sa-avg-ticket').textContent = '$' + avgTicket.toFixed(2);
 
-            // Render monthly breakdown
             const months = getMonthlySalesData();
             renderMonthlyTable(months);
             renderMonthlyChart(months);
 
-            // Generate sales summary
             generateSalesSummary(data, months);
 
-            // Sort products
             sortAndRenderTable(data.products);
 
-            // Render charts
             renderProductRankingChart(data.products, isDark, textColor);
             renderSalesFrequencyChart(data.products, isDark, textColor);
 
-            // Render least sold products
             renderLeastSoldTable(data.products);
         }
 
@@ -4095,7 +4100,6 @@ function renderSalesDailyLog() {
         }
 
         function sortAndRenderTable(products) {
-            // Sort based on current sort
             switch(currentProductSort) {
                 case 'qty': products.sort((a, b) => b.qty - a.qty); break;
                 case 'revenue': products.sort((a, b) => b.revenue - a.revenue); break;
@@ -4141,7 +4145,6 @@ function renderSalesDailyLog() {
             if (!ctx) return;
             if (productRankingChartInstance) productRankingChartInstance.destroy();
 
-            // Top 8 products by qty
             const topProducts = [...products].sort((a, b) => b.qty - a.qty).slice(0, 8);
             const labels = topProducts.map(p => p.name.length > 18 ? p.name.substring(0, 18) + '...' : p.name);
             const qtyData = topProducts.map(p => p.qty);
@@ -4195,7 +4198,6 @@ function renderSalesDailyLog() {
             if (!ctx) return;
             if (salesFrequencyChartInstance) salesFrequencyChartInstance.destroy();
 
-            // Count products by frequency category
             const freqCounts = { 'Diario': 0, 'Cada 2-3 días': 0, 'Semanal': 0, 'Quincenal': 0, 'Mensual': 0, 'Ocasional': 0, 'Venta única': 0 };
             products.forEach(p => {
                 if (freqCounts[p.frequencyLabel] !== undefined) {
@@ -4203,7 +4205,6 @@ function renderSalesDailyLog() {
                 }
             });
 
-            // Filter out zero categories
             const filteredLabels = [];
             const filteredData = [];
             const filteredColors = [];
@@ -4269,7 +4270,6 @@ function renderSalesDailyLog() {
             const soldProductIds = new Set(soldProducts.map(p => p.productId));
             const period = document.getElementById('sales-analytics-period').value;
 
-            // Find inventory products with no sales in this period, or low sales
             const unsoldProducts = inventory.filter(p => !soldProductIds.has(String(p.id)));
             const lowSoldProducts = soldProducts.filter(p => p.qty <= 2 && p.category === 'Baja rotación');
             
